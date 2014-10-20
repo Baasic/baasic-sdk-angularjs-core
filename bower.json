@@ -28,7 +28,7 @@
   "devDependencies": {
   },
   "dependencies": {
-	"massiveart-uritemplate": ">=0.0.0",
+	"baasic-uritemplate": "Baasic/uritemplate-js",
 	"baasic-angular-hal": "Baasic/angular-hal"
   }
 }
