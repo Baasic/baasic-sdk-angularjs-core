@@ -1,6 +1,6 @@
 {
   "name": "baasic-angular-core",
-  "version": "0.0.1",
+  "version": "0.1.20",
   "devDependencies": {
     "gulp": ">3.4.0",
 	"gulp-beautify": "1.0.3",
