@@ -1,6 +1,6 @@
 {
   "name": "baasic-angular-core",
-  "version": "0.0.1",
+  "version": "0.1.20",
   "description": "Baasic AngularJS SDK Core modules and services.",
   "keywords": [
     "angularjs",
@@ -28,7 +28,7 @@
   "devDependencies": {
   },
   "dependencies": {
-	"massiveart-uritemplate": ">=0.0.0",
+	"baasic-uritemplate": "Baasic/uritemplate-js",
 	"baasic-angular-hal": "Baasic/angular-hal"
   }
 }
