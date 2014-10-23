@@ -1,5 +1,5 @@
 (function (angular, undefined) {
-    var module = angular.module("baasic.baasicApi", ["HALParser"]);
+    var module = angular.module("baasic.api", ["HALParser"]);
 
     module.config(["$provide", function config($provide) {
         // copied from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
@@ -377,6 +377,53 @@
         };
     });
 
+    (function (angular, module, undefined) {
+        "use strict";
+        module.service("baasicLookupRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
+            return {
+                get: uriTemplateService.parse("lookup/{?embed,fields}")
+            };
+        }]);
+    }(angular, module));
+    (function (angular, module, undefined) {
+        "use strict";
+        module.service("baasicLookupService", ["baasicApiHttp", "baasicApiService", "baasicLookupRouteService", function (baasicApiHttp, baasicApiService, lookupRouteService) {
+            var lookupKey = "baasic-lookup-data";
+            return {
+                routeService: lookupRouteService,
+                get: function (data) {
+                    var deferred = baasicApiHttp.createHttpDefer();
+                    var result = JSON.parse(localStorage.getItem(lookupKey));
+                    if (result === undefined || result === null) {
+                        baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams(data))).success(function (data, status, headers, config) {
+                            localStorage.setItem(lookupKey, JSON.stringify(data));
+                            deferred.resolve({
+                                data: data,
+                                status: status,
+                                headers: headers,
+                                config: config
+                            });
+                        }).error(function (data, status, headers, config) {
+                            deferred.reject({
+                                data: data,
+                                status: status,
+                                headers: headers,
+                                config: config
+                            });
+                        });
+                    } else {
+                        deferred.resolve({
+                            data: result
+                        });
+                    }
+                    return deferred.promise;
+                },
+                reset: function () {
+                    localStorage.setItem(lookupKey, null);
+                }
+            };
+        }]);
+    }(angular, module));
     (function (angular, module, undefined) {
         "use strict";
         module.constant("baasicConstants", {
