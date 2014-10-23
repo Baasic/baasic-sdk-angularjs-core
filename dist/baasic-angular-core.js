@@ -1,5 +1,5 @@
 (function (angular, undefined) {
-    var module = angular.module("baasic.baasicApi", ["HALParser"]);
+    var module = angular.module("baasic.api", ["HALParser"]);
 
     module.config(["$provide", function config($provide) {
         // copied from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript

@@ -20,7 +20,7 @@
     </metadata>
     <files>
         <file src="..\dist\baasic-angular-core.js" target="content\Scripts\baasic-angular-core.js" />
-		<file src="..\dist\baasic-angular-core.min.js" target="content\Scripts\baasic-angular.core.min.js" />
+		<file src="..\dist\baasic-angular-core.min.js" target="content\Scripts\baasic-angular-core.min.js" />
     </files>
 </package>
 

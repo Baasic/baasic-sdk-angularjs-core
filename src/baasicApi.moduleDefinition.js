@@ -1,1 +1,1 @@
-﻿var module = angular.module("baasic.baasicApi", ["HALParser"]);
+﻿var module = angular.module("baasic.api", ["HALParser"]);
