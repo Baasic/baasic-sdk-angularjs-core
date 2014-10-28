@@ -1,6 +1,5 @@
 ﻿(function (angular, module, undefined) {
     "use strict";
-
     var extend = angular.extend;
 	// Tokenizer and unquote code taken from http://stackoverflow.com/questions/5288150/digest-authentication-w-jquery-is-it-possible/5288679#5288679
 	var wwwAuthenticateTokenizer = (function () {

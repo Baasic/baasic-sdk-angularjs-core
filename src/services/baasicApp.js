@@ -1,23 +1,23 @@
-﻿module.provider("baasicApp", function baasicAppService() {
+﻿(function (angular, module, undefined) {
+	"use strict";
+	module.provider("baasicApp", function baasicAppService() {
 		var apps = {};
 		var defaultApp;
-		
 		this.create = function create(apiKey, config) {
 			var defaultConfig = {
 				apiRootUrl: "api.baasic.local",
 				apiVersion: "beta"
 			};
-			
 			var app = MonoSoftware.Baasic.Application.init(apiKey, angular.extend(defaultConfig, config));
-			
+
 			apps[apiKey] = app;
 			if (!defaultApp) {
 				defaultApp = app;
 			}
-			
+
 			return app;
 		}
-		
+
 		this.$get = function () {
 			return {
 				all: function () {
@@ -37,5 +37,5 @@
 				}
 			};
 		};
-	}
-);
+	});
+}(angular, module));
