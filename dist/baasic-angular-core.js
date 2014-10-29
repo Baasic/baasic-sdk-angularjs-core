@@ -103,7 +103,6 @@
 
     (function (angular, module, undefined) {
         "use strict";
-
         var extend = angular.extend;
         // Tokenizer and unquote code taken from http://stackoverflow.com/questions/5288150/digest-authentication-w-jquery-is-it-possible/5288679#5288679
         var wwwAuthenticateTokenizer = (function () {
@@ -277,35 +276,39 @@
     (function (angular, module, undefined) {
         "use strict";
         module.service("baasicApiService", ["baasicConstants", function (baasicConstants) {
-            function FindParams(data) {
-                if (angular.isObject(data)) {
-                    angular.extend(this, data);
-                    if (data.hasOwnProperty('orderBy') && data.hasOwnProperty('orderDirection')) {
-                        this.sort = data.orderBy ? data.orderBy + '|' + data.orderDirection : null;
+            function FindParams(options) {
+                if (angular.isObject(options)) {
+                    angular.extend(this, options);
+                    if (options.hasOwnProperty('orderBy') && options.hasOwnProperty('orderDirection')) {
+                        this.sort = options.orderBy ? options.orderBy + '|' + options.orderDirection : null;
                     }
-                    if (data.hasOwnProperty('search')) {
-                        this.searchQuery = data.search;
+                    if (options.hasOwnProperty('search')) {
+                        this.searchQuery = options.search;
                     }
-                    if (data.hasOwnProperty('pageNumber')) {
-                        this.page = data.pageNumber;
+                    if (options.hasOwnProperty('pageNumber')) {
+                        this.page = options.pageNumber;
                     }
-                    if (data.hasOwnProperty('pageSize')) {
-                        this.rpp = data.pageSize;
+                    if (options.hasOwnProperty('pageSize')) {
+                        this.rpp = options.pageSize;
                     }
                 } else {
-                    this.searchQuery = data;
+                    this.searchQuery = options;
                 }
             }
 
-            function KeyParams(data, propName) {
-                if (angular.isObject(data)) {
-                    angular.extend(this, data);
+            function KeyParams(id, options, propName) {
+                if (angular.isObject(id)) {
+                    angular.extend(this, id);
                 } else {
                     if (propName !== undefined) {
-                        this[propName] = data;
+                        this[propName] = id;
                     } else {
-                        this[baasicConstants.keyPropertyName] = data;
+                        this[baasicConstants.idPropertyName] = id;
                     }
+                }
+
+                if (options !== undefined && angular.isObject(options)) {
+                    angular.extend(this, options);
                 }
             }
 
@@ -318,11 +321,11 @@
             }
 
             return {
-                findParams: function (data) {
-                    return new FindParams(data);
+                findParams: function (options) {
+                    return new FindParams(options);
                 },
-                getParams: function (data, propName) {
-                    return new KeyParams(data, propName);
+                getParams: function (id, options, propName) {
+                    return new KeyParams(id, options, propName);
                 },
                 createParams: function (data) {
                     return new ModelParams(data);
@@ -336,69 +339,88 @@
             };
         }]);
     }(angular, module));
-    module.provider("baasicApp", function baasicAppService() {
-        var apps = {};
-        var defaultApp;
+    (function (angular, module, undefined) {
+        "use strict";
+        module.provider("baasicApp", function baasicAppService() {
+            var apps = {};
+            var defaultApp;
+            this.create = function create(apiKey, config) {
+                var defaultConfig = {
+                    apiRootUrl: "api.baasic.com",
+                    apiVersion: "beta"
+                };
+                var app = MonoSoftware.Baasic.Application.init(apiKey, angular.extend(defaultConfig, config));
 
-        this.create = function create(apiKey, config) {
-            var defaultConfig = {
-                apiRootUrl: "api.baasic.com",
-                apiVersion: "beta"
-            };
+                apps[apiKey] = app;
+                if (!defaultApp) {
+                    defaultApp = app;
+                }
 
-            var app = MonoSoftware.Baasic.Application.init(apiKey, angular.extend(defaultConfig, config));
-
-            apps[apiKey] = app;
-            if (!defaultApp) {
-                defaultApp = app;
+                return app;
             }
 
-            return app;
-        }
+            this.$get = function () {
+                return {
+                    all: function () {
+                        var list = [];
+                        for (var key in apps) {
+                            list.push(apps[key]);
+                        }
 
-        this.$get = function () {
-            return {
-                all: function () {
-                    var list = [];
-                    for (var key in apps) {
-                        list.push(apps[key]);
+                        return list;
+                    },
+                    get: function getBaasicApplication(apiKey) {
+                        if (apiKey) {
+                            return apps[apiKey];
+                        } else {
+                            return defaultApp;
+                        }
                     }
-
-                    return list;
-                },
-                get: function getBaasicApplication(apiKey) {
-                    if (apiKey) {
-                        return apps[apiKey];
-                    } else {
-                        return defaultApp;
-                    }
-                }
+                };
             };
-        };
-    });
-
+        });
+    }(angular, module));
     (function (angular, module, undefined) {
         "use strict";
         module.service("baasicLookupRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
             return {
-                get: uriTemplateService.parse("lookup/{?embed,fields}")
+                get: uriTemplateService.parse("lookups/{?embed,fields}"),
+                parse: uriTemplateService.parse
             };
         }]);
     }(angular, module));
     (function (angular, module, undefined) {
         "use strict";
-        module.service("baasicLookupService", ["baasicApiHttp", "baasicApiService", "baasicLookupRouteService", function (baasicApiHttp, baasicApiService, lookupRouteService) {
-            var lookupKey = "baasic-lookup-data";
+        module.service("baasicLookupService", ["baasicApiHttp", "baasicApp", "baasicApiService", "baasicLookupRouteService", function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {
+            var apiKey = baasicApp.get().get_apiKey(),
+                lookupKey = "baasic-lookup-data-" + apiKey;
+
+            function getResponseData(params, data) {
+                var responseData = {};
+                if (params.embed) {
+                    var embeds = params.embed.split(',');
+                    for (var embed in embeds) {
+                        if (data.hasOwnProperty(embed)) {
+                            responseData[embed] = data[embed];
+                        }
+                    }
+                }
+                return responseData;
+            }
+
             return {
                 routeService: lookupRouteService,
-                get: function (data) {
+                get: function (options) {
                     var deferred = baasicApiHttp.createHttpDefer();
                     var result = JSON.parse(localStorage.getItem(lookupKey));
                     if (result === undefined || result === null) {
-                        baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams(data))).success(function (data, status, headers, config) {
+                        baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams({
+                            embed: 'role,accessAction,accessSection'
+                        }))).success(function (data, status, headers, config) {
                             localStorage.setItem(lookupKey, JSON.stringify(data));
+                            var responseData = getResponseData(options, data);
                             deferred.resolve({
-                                data: data,
+                                data: responseData,
                                 status: status,
                                 headers: headers,
                                 config: config
@@ -413,7 +435,7 @@
                         });
                     } else {
                         deferred.resolve({
-                            data: result
+                            data: getResponseData(options, result)
                         });
                     }
                     return deferred.promise;
@@ -428,7 +450,6 @@
         "use strict";
         module.constant("baasicConstants", {
             idPropertyName: 'id',
-            keyPropertyName: 'key',
             modelPropertyName: 'model'
         });
     }(angular, module));

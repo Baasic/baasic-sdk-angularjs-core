@@ -2,36 +2,40 @@
     "use strict";
     module.service("baasicApiService", ["baasicConstants",
         function (baasicConstants) {
-            function FindParams(data) {
-				if (angular.isObject(data)) {
-                    angular.extend(this, data);					
-					if (data.hasOwnProperty('orderBy') && data.hasOwnProperty('orderDirection')) {
-						this.sort = data.orderBy ? data.orderBy + '|' + data.orderDirection : null;
-					}
-					if (data.hasOwnProperty('search')) {
-						this.searchQuery = data.search;
-					}
-					if (data.hasOwnProperty('pageNumber')) {
-						this.page = data.pageNumber;
-					}
-					if (data.hasOwnProperty('pageSize')) {
-						this.rpp = data.pageSize;
-					}
+            function FindParams(options) {
+                if (angular.isObject(options)) {
+                    angular.extend(this, options);
+                    if (options.hasOwnProperty('orderBy') && options.hasOwnProperty('orderDirection')) {
+                        this.sort = options.orderBy ? options.orderBy + '|' + options.orderDirection : null;
+                    }
+                    if (options.hasOwnProperty('search')) {
+                        this.searchQuery = options.search;
+                    }
+                    if (options.hasOwnProperty('pageNumber')) {
+                        this.page = options.pageNumber;
+                    }
+                    if (options.hasOwnProperty('pageSize')) {
+                        this.rpp = options.pageSize;
+                    }
                 } else {
-					this.searchQuery = data;
-				}
+                    this.searchQuery = options;
+                }
             }
 
-            function KeyParams(data, propName) {
-                if (angular.isObject(data)) {
-                    angular.extend(this, data);
+            function KeyParams(id, options, propName) {
+                if (angular.isObject(id)) {
+                    angular.extend(this, id);
                 } else {
-					if (propName !== undefined) {
-						this[propName] = data;
-					} else {
-						this[baasicConstants.keyPropertyName] = data;
-					}
-                } 
+                    if (propName !== undefined) {
+                        this[propName] = id;
+                    } else {
+                        this[baasicConstants.idPropertyName] = id;
+                    }
+                }
+
+                if (options !== undefined && angular.isObject(options)) {
+                    angular.extend(this, options);
+                }
             }
 
             function ModelParams(data) {
@@ -43,11 +47,11 @@
             }
 
             return {
-                findParams: function (data) {
-                    return new FindParams(data);
+                findParams: function (options) {
+                    return new FindParams(options);
                 },
-                getParams: function (data, propName) {
-                    return new KeyParams(data, propName);
+                getParams: function (id, options, propName) {
+                    return new KeyParams(id, options, propName);
                 },
                 createParams: function (data) {
                     return new ModelParams(data);
