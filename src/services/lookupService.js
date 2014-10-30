@@ -8,11 +8,12 @@
 				var responseData = {};
 				if (params.embed) {
 					var embeds = params.embed.split(',');
-					for (var embed in embeds) {  
-						if (data.hasOwnProperty(embed)) {  
-							responseData[embed] = data[embed];
-						}
-					}									
+                    for (var index in embeds) {
+                        var propName = embeds[index];
+                        if (data.hasOwnProperty(propName)) {
+                            responseData[propName] = data[propName];
+                        }
+                    }
 				}
 				return responseData;
 			}
