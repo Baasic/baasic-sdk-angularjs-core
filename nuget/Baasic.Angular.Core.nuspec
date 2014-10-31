@@ -16,7 +16,7 @@
 		<dependencies>     
             <dependency id="UriTemplateJs" version="(,2.0)" />                        
             <dependency id="AngularJs.HAL.Parser" version="(,2.0)" />                        
-            <dependency id="MonoSoftware.Baasic.Js.Framework" version="(,2.0)" />                        
+            <dependency id="Baasic.JavaScript.Framework" version="(,2.0)" />                        
         </dependencies>
     </metadata>
     <files>
