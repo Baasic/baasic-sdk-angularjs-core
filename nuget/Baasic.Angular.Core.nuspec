@@ -9,6 +9,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>AngularJS Core module making calls to the Baasic API easy.</description>
         <summary />
+		<projectUrl>https://github.com/Baasic/baasic-sdk-angularjs-core</projectUrl>
         <copyright>Mono Ltd.</copyright>
         <language>en-US</language>
         <tags>Javascript, Baasic, AngularJs</tags>
