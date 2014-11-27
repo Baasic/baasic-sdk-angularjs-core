@@ -1,54 +1,63 @@
 # Baasic Core AngularJS SDK
 
-The Baasic AngularJS core library provides integration access to the Baasic Service [REST API](https://api.baasic.com). 
+Baasic AngularJS Core library provides integration access to the Baasic Service [REST API](https://api.baasic.com). 
 
 ## Dependencies
 
-Baasic AngularJS Core library has the following dependencies 
+Baasic AngularJS Core library has the following dependencies:
 
 * [Baasic JavaScript Framework](https://github.com/Baasic/baasic-sdk-javascript)
-* [AngularJS](http://www.angularjs.org/)(>= 1.2.16)
+* [AngularJS](http://www.angularjs.org/) (>= 1.2.16)
 * [HAL Parser](https://github.com/Baasic/angular-hal)
 * [URI Template](https://github.com/Baasic/uritemplate-js)
 
 ## Usage
 
-This section will describe how to add the Baasic AngularJS core library to your project. It's important to know that Baasic AngularJS SDK is using HAL+JSON format for back-end communication, you can find more information about HAL format [here](http://stateless.co/hal_specification.html).  
+This section will describe how to add the Baasic AngularJS Core library to your project. It's important to know that Baasic AngularJS SDK is using HAL+JSON format for back-end communication, you can find more information about HAL format [here](http://stateless.co/hal_specification.html).  
 
 If you learn best by example please move forward to the [Demo Section](#demo)
 
-### Add the Library to Your Project
+### Adding the Library to your Project
 
-It is recommended to serve the library from the CDN (Content Delivery Network) but note that this isn't required. Please add the following lines of code after loading the AngularJS. 
+Please add the following lines of code after the AngularJS include:
 
-    <script src='//cdn.net/js/hal-parser.js'></script>
-    <script src='//cdn.net/js/uritemplate-min.js'></script>
-	<script src='//cdn.net/js/baasic-angular-1.0.0.min.js'></script>
+```html
+<script src='//cdn.net/js/hal-parser.js'></script>
+<script src='//cdn.net/js/uritemplate-min.js'></script>
+<script src='//cdn.net/js/baasic-angular-1.0.0.min.js'></script>
+```
 
-### Initialize
+The recommended way of serving the library is through a [CDN]((http://en.wikipedia.org/wiki/Content_delivery_network) but note that this is not a requirement. If you prefer adding the library files directly to your project instead, please modify the includes accordingly.
 
-To use the library you need to add the Baasic (_baasic.api_) dependency to your AngularJS module. This will allow you to use library services described in the [Modules Section](#baasic-modules).
+To use the library you need to add the Baasic (_baasic.baasicApi_) dependency to your AngularJS module. This will allow you to use library services described in the [Modules Section](#baasic-modules).
+### Initialization
 
-	 angular.module('my-module', ["baasic.api"])		
+
+
+```js
+angular.module('my-module', ["baasic.api"])
+```
+To be able use the library you will need to add the Baasic (_baasic.api_) dependency to your AngularJS module. This will allow you to use the library services described in [Modules Section](#baasic-modules).
 
 ### Application Configuration
 
-Baasic AngularJS library allows you to use multiple Baasic applications in your AngularJS modules. To initialize Baasic application you need to add the following code to you module configuration.
+Baasic AngularJS library allows you to use multiple Baasic applications in your AngularJS modules. To initialize a Baasic application you will need to add the following code to you module configuration:
 
-		module.config(["baasicAppProvider",
-			function (baasicAppProvider) {
-				var app = baasicAppProvider.create("my-app-identifier", {
-                    apiRootUrl: "api.baasic.com",
-                    apiVersion: "v1"
-                });
-			}]);
+```js
+module.config(["baasicAppProvider",
+    function (baasicAppProvider) {
+        var app = baasicAppProvider.create("my-app-identifier", {
+            apiRootUrl: "api.baasic.com",
+            apiVersion: "v1"
+        });
+    }]);
+```
 
-
-**Note:** _To obtain Baasic Application Identifier please create your application on the [Baasic Registration](https://dashboard.baasic.com/register/) page._
+**Note:** _To obtain a Baasic Application Identifier please create your application on [Baasic Registration](https://dashboard.baasic.com/register/) page._
 
 ## Baasic Modules
 
-Baasic back-end has many built-in modules that can be used with Baasic AngularJS library. Below you can find short list of modules supported by Baasic AngularJS SDK. 
+Baasic back-end contains various built-in modules that can be easily consumed through the Baasic AngularJS library. Below you can find detailed information about all the core modules supported by the library.
 
 * [Security service](https://github.com/Baasic/baasic-sdk-angularjs-security) 
 * [Membership service](https://github.com/Baasic/baasic-sdk-angularjs-membership)
@@ -62,12 +71,42 @@ Baasic back-end has many built-in modules that can be used with Baasic AngularJS
 
 ### Baasic Module Architecture
 
-To get better understanding of Baasic AngularJS services here are the details about main architecture that all library services conform to. 
+To get a better understanding of Baasic AngularJS services bellow are the details of the main architecture to which all the library services conform to.
 
 * Core Services
-	* __baasicApp__ service is used to manage the Baasic application instances. There can be multiple AngularJS application instances communicating with difference Baasic applications. 
+    * __baasicApp__ service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application)
+        *  create an application
+        ```js
+        module.controller("MyCtrl", ["baasicApp",
+            function MyCtrl(baasicApp) {
+                var app = baasicApp.create("my-app-identifier", {
+                    apiRootUrl: "api.baasic.com",
+                    apiVersion: "production"
+                });
+            }]);
+        ```
+        * get the default application
+        ```js
+        module.controller("MyCtrl", ["baasicApp",
+            function MyCtrl(baasicApp) {
+                var app = baasicApp.get();
+            }]);
+        ```
+        * application object has the following methods
+        ```js
+        var apiKey = app.get_apiKey();
+        var apiURI = app.get_apiUrl();
+        var accessToken = app.get_accessToken();
+        app.update_accessToken(accessToken);
+        var currentUser = app.get_user();
+        app.set_user(userDetails, accessToken);
+        var currentLanguage = app.get_currentLanguage();
+        var defaultLanguage = app.get_defaultLanguage();
+        ```
+    * __baasicApiHttp__
+    * __baasicApiService__
+    * __baasicConstants__
 
-		*  create an application 
 
 				module.controller("MyCtrl", ["baasicApp",
 					function MyCtrl(baasicApp) {
@@ -123,13 +162,13 @@ To get better understanding of Baasic AngularJS services here are the details ab
 		Baasic constants contain values like _id_ property name, _model_ property name parameters that can be used if manual model or option transformation is needed. 
 
 * Route Services
-	* every service has route service used to define REST service URL discovery 
+	* every service has route service used to wrap REST service URL discovery 
 	* route service will parse the REST service URL and prepare the URL for expansion 
 	* route services contain following routes
-		* _find_ - used to fetch collection of resources it can be filtered, sorted and paged
+		* _find_ - used to fetch collection of resources that can be filtered, sorted and paged
 		* _get_ - used to fetch single resource
 		* _create_ - used to create new resources
-	* _find_ routes has the following parameters
+	* _find_ route has the following parameters
 		* _searchQuery_ - used to build simple filters or complex queries (read more about Baasic Query Language in Baasic User Manual)
 		* _page_ - used to define the current page
 		* _rpp_ - used to define the number of resources per page
@@ -143,10 +182,10 @@ To get better understanding of Baasic AngularJS services here are the details ab
 	* _parse_ is an utility method used to parse custom URIs. _Note: parse will not return a route_	 
 
 * Module Services
-	* Baasic module services are built on top of the AngularJS services 
-	* module services depend upon the route services as they are used for REST service URL discovery (Note: every service exposes route service with the _routeService_ property)
-	* every service has the _find_, _get_, _create_, _update_ and _remove_ functions used to communicate with the Baasic back-end
-	* all services accept the data object as function parameter 
+    * Baasic module services are built on top of the AngularJS services
+    * module services depend upon the route services as they are used for REST service URL discovery (Note: every service exposes route service with the _routeService_ property)
+    * every service has the _find_, _get_, _create_, _update_ and _remove_ functions used to communicate with the Baasic back-end
+    * all services accept the data object as function parameter
 
 * HAL links
 
@@ -194,6 +233,8 @@ To get better understanding of Baasic AngularJS services here are the details ab
    
 
 * Extending models 
+* recaptchaService
+* recaptchaDirective
 
 	Baasic built-in models can be extended with custom properties simply by setting property value.
 
@@ -216,9 +257,9 @@ To get better understanding of Baasic AngularJS services here are the details ab
 ## Build Process
 
 1. Install [NodeJs](http://nodejs.org/download/)
-2. Open Shell/Command Prompt in the Baasic AngularJS folder 
+2. Open Shell/Command Prompt in the Baasic AngularJS folder
 3. Run __npm install__
-4. Install gulp globally: __npm install -g gulp__ 
+4. Install gulp globally: __npm install -g gulp__
 5. Run __gulp__
 
 ## Contribute
