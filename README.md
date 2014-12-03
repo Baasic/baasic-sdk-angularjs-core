@@ -67,157 +67,171 @@ Baasic back-end contains various built-in modules that can be easily consumed th
 * [Article module service](https://github.com/Baasic/baasic-sdk-angularjs-articles)
 * General services, directives etc.
 
-
 ### Baasic Module Architecture
 
 To get a better understanding of Baasic AngularJS services bellow are the details of the main architecture to which all the library services conform to.
 
-* Core Services
-    * __baasicApp__ service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application)
-        *  create an application
-        ```js
-        module.controller("MyCtrl", ["baasicApp",
-            function MyCtrl(baasicApp) {
-                var app = baasicApp.create("my-app-identifier", {
-                    apiRootUrl: "api.baasic.com",
-                    apiVersion: "v1"
-                });
-            }]);
-        ```
-        * get the default application
-        ```js
-        module.controller("MyCtrl", ["baasicApp",
-            function MyCtrl(baasicApp) {
-                var app = baasicApp.get();
-            }]);
-        ```
-        * application object has the following methods
-        ```js
-        var apiKey = app.get_apiKey();
-        var apiURI = app.get_apiUrl();
-        var accessToken = app.get_accessToken();
-        app.update_accessToken(accessToken);
-        var currentUser = app.get_user();
-        app.set_user(userDetails, accessToken);
-        var currentLanguage = app.get_currentLanguage();
-        var defaultLanguage = app.get_defaultLanguage();
-        ```
-    * __baasicApiHttp__
+##### Core Services
 
-        Baasic HTTP service is used to perform low level communication with the Baasic back-end.<br />
-        Baasic HTTP service will handle:
-        * authentication tokens
-        * HAL parsing
+* __baasicApp__ service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application)
+    *  create an application
+    ```js
+    module.controller("MyCtrl", ["baasicApp",
+        function MyCtrl(baasicApp) {
+            var app = baasicApp.create("my-app-identifier", {
+                apiRootUrl: "api.baasic.com",
+                apiVersion: "v1"
+            });
+        }]);
+    ```
+    * get the default application
+    ```js
+    module.controller("MyCtrl", ["baasicApp",
+        function MyCtrl(baasicApp) {
+            var app = baasicApp.get();
+        }]);
+    ```
+    * application object has the following methods
+    ```js
+    var apiKey = app.get_apiKey();
+    var apiURI = app.get_apiUrl();
+    var accessToken = app.get_accessToken();
+    app.update_accessToken(accessToken);
+    var currentUser = app.get_user();
+    app.set_user(userDetails, accessToken);
+    var currentLanguage = app.get_currentLanguage();
+    var defaultLanguage = app.get_defaultLanguage();
+    ```
+* __baasicApiHttp__
 
-    * __baasicApiService__
+    Baasic HTTP service is used to perform low level communication with the Baasic back-end.
 
-        Service is used to perform low level model or option transformations before they are sent to Baasic back-end.<br />
-        Following transformations are supported:
+    This service handles:
+    * authentication tokens
+    * HAL parsing
 
-        * Resource collection fetch transformation
-        * Single resource fetch transformation
-        * Create resource transformation
-        * Update resource transformation
-        * Delete resource transformation
+* __baasicApiService__
 
-    * __baasicConstants__
+    This service is used to perform low level model or option transformations before they are sent to the Baasic back-end.
 
-    Baasic constants contain values like _id_ property name, _model_ property name parameters that can be used if manual model or option transformation is needed.
+    The following transformations are supported:
+
+    * Resource collection fetch transformation
+    * Single resource fetch transformation
+    * Create resource transformation
+    * Update resource transformation
+    * Delete resource transformation
+
+* __baasicConstants__
+
+Baasic constants contain values such as _id_ property name and _model_ property name parameters that can be used in case manual model or option transformation is needed.
 
 
-* Route Services
-    * every service has route service used to wrap REST service URL discovery
-    * route service will parse the REST service URL and prepare the URL for expansion
-    * route services contain following routes
-        * _find_ - used to fetch collection of resources that can be filtered, sorted and paged
-        * _get_ - used to fetch single resource
-        * _create_ - used to create new resources
-    * _find_ route has the following parameters
-        * _searchQuery_ - used to build simple filters or complex queries (read more about Baasic Query Language in Baasic User Manual)
-        * _page_ - used to define the current page
-        * _rpp_ - used to define the number of resources per page
-        * _sort_ - used to define sorting expression applied on the returned resources. Sorting expression has the following format _"fieldName|asc", "field1Name|asc,field2Name|desc"_
-        * _embed_ - used to embed additional resources
-        * _fields_ - used to define the list of fields returned by the service  
-    * _get_ route has the following parameters
-        * _embed_ - used to embed additional resources
-        * _fields_ - used to define the list of fields returned by the service
-    * _create_ route has the no parameters in most cases and it's used to create a new resource
-    * _parse_ is an utility method used to parse custom URIs. _Note: parse will not return a route_
+##### Route Services
 
-* Module Services
-    * Baasic module services are built on top of the AngularJS services
-    * module services depend upon the route services as they are used for REST service URL discovery (Note: every service exposes route service with the _routeService_ property)
-    * every service has the _find_, _get_, _create_, _update_ and _remove_ functions used to communicate with the Baasic back-end
-    * all services accept the data object as function parameter
+* every service has a route service used to wrap REST service URL discovery
+* route service parses the REST service URL and prepares the URL for expansion
+* route services contain the following routes
+    * `find` - used to fetch a collection of resources that can be filtered, paged, sorted
+    * `get` - used to fetch a single resource
+    * `create` - used to create a new resources
+* supported route parameters:
+    * `find` route supports the following parameters:
+        * `searchQuery` - used to build simple filters or complex queries (read more about Baasic Query Language in Baasic User Manual)
+        * `page` - used to define the current page
+        * `rpp` - used to define the number of resources per page
+        * `sort` - used to define sorting expression applied to the returned resources. Sorting expressions use the following format: `fieldName|asc`, `field1Name|asc,field2Name|desc`
+        * `embed` - used to embed additional resources
+        * `fields` - used to define the list of fields returned by the service  
+    * `get` route supports the following parameters:
+        * `embed` - used to embed additional resources
+        * `fields` - used to define list of fields returned by the service
+    * `create` route in most cases has no parameters
+* `parse` is an utility method used to parse custom URIs (_Note: parse will not return a route_)
 
-* HAL links
+##### Module Services
 
-    Resources returned from Baasic will be, by default, in HAL format looking similar to this:
-    ```json
-    {
-        "key": "your-key",
-        "value": "your-value",
-        "dateCreated": "2015-01-01T14:24:56.795849Z",
-        "dateUpdated": "2015-01-01T14:24:56.795849Z",
-        "id": "4f788120-7cf8-44e1-bf81-a33e012c94ee",
-        "_links": {
-            "self": {
-                "href": "http://api.baasic.local/v1/your-app-id/key-values/your-key",
-                "templated": false
-            },
-            "post": {
-                "href": "http://api.baasic.local/v1/your-app-id/key-values",
-                "templated": false
-            },
-            "put": {
-                "href": "http://api.baasic.local/v1/your-app-id/key-values/your-key",
-                "templated": false
-            },
-            "delete": {
-                "href": "http://api.baasic.local/v1/your-app-id/key-values/your-key",
-                "templated": false
-            }
+* Baasic module services are built on top of AngularJS services
+* module services depend upon route services as they are used for REST service URL discovery (Note: every service exposes route service through the _routeService_ property)
+* every service has the `find`, `get`, `create`, `update` and `remove` functions used to communicate with the Baasic back-end
+* all services accept _data_ object as a function parameter
+
+##### HAL links
+
+Resources returned from Baasic are by default in HAL format and they look similar to this:
+```json
+{
+    "key": "your-key",
+    "value": "your-value",
+    "dateCreated": "2015-01-01T14:24:56.795849Z",
+    "dateUpdated": "2015-01-01T14:24:56.795849Z",
+    "id": "4f788120-7cf8-44e1-bf81-a33e012c94ee",
+    "_links": {
+        "self": {
+            "href": "http://api.baasic.local/v1/your-app-id/key-values/your-key",
+            "templated": false
         },
-        "_embedded": { }
-    }
-    ```
-    **Note**: It is recommended to use AngularJS SDK services to access the Baasic back-end, for manual access to the back-end URLs use the following code
-
-    ```js
-    data.links('put').href
-    data.links('delete').href
-    ```
-
-    or create your own _update_ function by using Baasic core services
-
-    ```js
-    update: function (data) {
-        var params = baasicApiService.updateParams(data);
-        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
+        "post": {
+            "href": "http://api.baasic.local/v1/your-app-id/key-values",
+            "templated": false
+        },
+        "put": {
+            "href": "http://api.baasic.local/v1/your-app-id/key-values/your-key",
+            "templated": false
+        },
+        "delete": {
+            "href": "http://api.baasic.local/v1/your-app-id/key-values/your-key",
+            "templated": false
+        }
     },
-    ```
+    "_embedded": { }
+}
+```
+
+**Note**: The preferred way of accessing Bassic back-end is through use of AngularJS SDK services. For manual access to the back-end URL's you can use this (or similar) code:
+
+```js
+data.links('put').href
+data.links('delete').href
+```
+
+You can for example also create your own `update` function by using Baasic core services:
+
+```js
+update: function (data) {
+    var params = baasicApiService.updateParams(data);
+    var url = params[baasicConstants.modelPropertyName].links('put').href;
+    var model = params[baasicConstants.modelPropertyName];
+    return baasicApiHttp.put(url, model);
+},
+```
 
 
-* Extending models
-* recaptchaService
-* recaptchaDirective
+##### Extending models
 
-    Baasic built-in models can be extended with custom properties simply by setting property value.
+Baasic built-in models can be extended with custom properties by simply setting property values.
 
-    ```js
-    article.myProperty = 1;
-    article.myPropertyObject = {
-        firstProp: 1,
-        secondProp: 2
-    }
+```js
+article.myProperty = 1;
+article.myPropertyObject = {
+    firstProp: 1,
+    secondProp: 2
+}
 
-    update: function (article) {
-        return articleService.update(article);
-    }
-    ```
+update: function (article) {
+    return articleService.update(article);
+}
+```
 
-    This powerful features allows you to extend all built-in models with custom properties and make modules like Article suite your needs.
+This powerful feature allows you to extend all built-in models with custom properties which allows modules like Article to fully suit your needs.
+
+##### recaptchaService
+
+TBA.
+
+##### recaptchaDirective
+
+TBA.
 
 ## Demo
 
@@ -227,22 +241,24 @@ To get a better understanding of Baasic AngularJS services bellow are the detail
 
 1. Install [NodeJs](http://nodejs.org/download/)
 2. Open Shell/Command Prompt in the Baasic AngularJS folder
-3. Run __npm install__
-4. Install gulp globally: __npm install -g gulp__
-5. Run __gulp__
+3. Run `npm install`
+4. Install gulp globally: `npm install -g gulp`
+5. Run `gulp`
 
-## Contribute
+## Contributing
 
-* Pull requests are always welcome
+##### Pull requests are always welcome
 
-    We appreciate pull requests, and we do our best to process them as quickly as possible. If there is just a typo, small or large issue Do it! It will help us a lot.
+We appreciate pull requests you make, and we'll do our best to process them as quickly as we can. Even if it's just a typo you found or any small or large issue you fixed - please do it! It will help us a lot.
 
-    If your pull request is not accepted on the first try, don't be discouraged! If there's a problem with the implementation, hopefully you received feedback on what to improve.
+If your pull request is not accepted on your first try, don't be discouraged! If there's a problem with your implementation, hopefully you received feedback on what to improve.
 
-* Report issues
+##### Issue reporting
 
-    Please check for existing issue before you create one, if it does exist add a quick _+1_ or _I have the same problem_
+Before you create a new issue, please make sure it hasn't already been reported. In case it already exists simply add a quick _"+1"_ or _"I have the same problem"_ to the existing issue thread.
 
-* Help us write documentation
+##### Other
+
+* Help us write the documentation
 * Create interesting apps using SDK
-* Looking for something else to do? Get in touch  
+* Looking for something else to do? Get in touch..
