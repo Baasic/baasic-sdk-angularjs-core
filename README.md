@@ -34,7 +34,7 @@ The recommended way of serving the library is through a [CDN](http://en.wikipedi
 
 To be able to use the library you will need to add the Baasic (_baasic.api_) dependency to your AngularJS module. This will allow you to use library services described in [Modules Section](#baasic-modules).
 
-```js
+```javascript
 angular.module('my-module', ["baasic.api"])
 ```
 
@@ -42,7 +42,7 @@ angular.module('my-module', ["baasic.api"])
 
 Baasic AngularJS library allows you to use multiple Baasic applications in your AngularJS modules. To initialize a Baasic application you will need to add the following code to you module configuration:
 
-```js
+```javascript
 module.config(["baasicAppProvider",
     function (baasicAppProvider) {
         var app = baasicAppProvider.create("my-app-identifier", {
@@ -75,7 +75,7 @@ To get a better understanding of Baasic AngularJS services bellow are the detail
 
 * __baasicApp__ service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application)
     *  create an application
-    ```js
+    ```javascript
     module.controller("MyCtrl", ["baasicApp",
         function MyCtrl(baasicApp) {
             var app = baasicApp.create("my-app-identifier", {
@@ -85,14 +85,14 @@ To get a better understanding of Baasic AngularJS services bellow are the detail
         }]);
     ```
     * get the default application
-    ```js
+    ```javascript
     module.controller("MyCtrl", ["baasicApp",
         function MyCtrl(baasicApp) {
             var app = baasicApp.get();
         }]);
     ```
     * application object has the following methods
-    ```js
+    ```javascript
     var apiKey = app.get_apiKey();
     var apiURI = app.get_apiUrl();
     var accessToken = app.get_accessToken();
@@ -159,7 +159,7 @@ Baasic constants contain values such as _id_ property name and _model_ property 
 ##### HAL links
 
 Resources returned from Baasic are by default in HAL format and they look similar to this:
-```json
+```javascript
 {
     "key": "your-key",
     "value": "your-value",
@@ -190,14 +190,14 @@ Resources returned from Baasic are by default in HAL format and they look simila
 
 **Note**: The preferred way of accessing Bassic back-end is through use of AngularJS SDK services. For manual access to the back-end URL's you can use this (or similar) code:
 
-```js
+```javascript
 data.links('put').href
 data.links('delete').href
 ```
 
 You can for example also create your own `update` function by using Baasic core services:
 
-```js
+```javascript
 update: function (data) {
     var params = baasicApiService.updateParams(data);
     var url = params[baasicConstants.modelPropertyName].links('put').href;
@@ -211,7 +211,7 @@ update: function (data) {
 
 Baasic built-in models can be extended with custom properties by simply setting property values.
 
-```js
+```javascript
 article.myProperty = 1;
 article.myPropertyObject = {
     firstProp: 1,
