@@ -181,6 +181,16 @@
         var proxyFactory = function proxyFactory($rootScope, $http, parser, app) {
             var apiUrl = app.get_apiUrl();
 
+            function removeToken(details) {
+                var token = app.get_accessToken();
+                app.update_accessToken(null);
+                $rootScope.$broadcast("token_error", {
+                    token: token,
+                    error: details.error,
+                    error_description: details.error_description
+                });
+            }
+
             function parseHeaders(headers) {
                 var wwwAuthenticate = parseWWWAuthenticateHeader(headers("WWW-Authenticate"));
                 if (wwwAuthenticate) {
@@ -190,13 +200,14 @@
                             if (details.error) {
                                 switch (details.error) {
                                 case "invalid_token":
-                                    var token = app.get_accessToken();
-                                    app.update_accessToken(null);
-                                    $rootScope.$broadcast("token_error", {
-                                        token: token,
-                                        error: details.error,
-                                        error_description: details.error_description
-                                    });
+                                    removeToken(details)
+                                    break;
+                                case "invalid_request":
+                                    switch (details.error_description) {
+                                    case "Missing or invalid session":
+                                        removeToken(details);
+                                        break;
+                                    }
                                     break;
                                 }
                             }
