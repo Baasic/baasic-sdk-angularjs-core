@@ -42,7 +42,7 @@
                             proxyFrame: [],
                             apiUrlRegex: new RegExp("^" + regExpEscape(apiUrl)),
                             sendMessage: function sendMessageToQueue(request) {
-                                this.proxyFrame.push[request];
+                                this.proxyFrame.push(request);
                             }
                         };
 
