@@ -5,31 +5,30 @@
   "keywords": [
     "angularjs",
     "baasic",
-	"ajax",
+    "ajax",
     "backend"
   ],
   "license": "MIT",
   "main": "dist/baasic-angular-core.js",
   "ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests",
-        "src",
-        "spec",
-		"NuGet",
-		"lib",
-        "bower.json",
-        "gulpfile.js",
-        "package.json",
-        "README.md"
-    ],
-  "devDependencies": {
-  },
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src",
+    "spec",
+    "NuGet",
+    "lib",
+    "bower.json",
+    "gulpfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "devDependencies": {},
   "dependencies": {
-	"baasic-javascript-framework": "Baasic/baasic-sdk-javascript",
-	"baasic-uritemplate": "Baasic/uritemplate-js",
-	"baasic-angular-hal": "Baasic/angular-hal"
+    "baasic-uritemplate": "Baasic/uritemplate-js",
+    "baasic-angular-hal": "Baasic/angular-hal",
+    "baasic-javascript-framework": "http://gitserver/monosoftware/baasic-sdk-javascript.git#~0.1.27"
   }
 }
