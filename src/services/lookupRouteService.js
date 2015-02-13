@@ -1,9 +1,11 @@
-﻿(function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicLookupRouteService", ["baasicUriTemplateService",
+﻿/* globals module */
+
+(function (angular, module, undefined) {
+    'use strict';
+    module.service('baasicLookupRouteService', ['baasicUriTemplateService',
         function (uriTemplateService) {
             return {				
-                get: uriTemplateService.parse("lookups/{?embed,fields}"),
+                get: uriTemplateService.parse('lookups/{?embed,fields}'),
 				parse: uriTemplateService.parse
             };
         }]);

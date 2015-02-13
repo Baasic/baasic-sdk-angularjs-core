@@ -1,6 +1,6 @@
 {
   "name": "baasic-angular-core",
-  "version": "0.1.27",
+  "version": "0.2.0",
   "description": "Baasic AngularJS SDK Core modules and services.",
   "keywords": [
     "angularjs",
@@ -29,6 +29,6 @@
   "dependencies": {
     "baasic-uritemplate": "Baasic/uritemplate-js",
     "baasic-angular-hal": "Baasic/angular-hal",
-    "baasic-javascript-framework": "http://gitserver/monosoftware/baasic-sdk-javascript.git#~0.1.27"
+    "baasic-javascript-framework": "http://gitserver/monosoftware/baasic-sdk-javascript.git#~0.2.0"
   }
 }

@@ -1,6 +1,8 @@
-﻿(function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicLookupService", ["baasicApiHttp", "baasicApp", "baasicApiService", "baasicLookupRouteService",
+﻿/* globals module */
+
+(function (angular, module, undefined) {
+    'use strict';
+    module.service('baasicLookupService', ['baasicApiHttp', 'baasicApp', 'baasicApiService', 'baasicLookupRouteService',
         function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {			
 			function getResponseData(params, data) {
 				var responseData = {};
