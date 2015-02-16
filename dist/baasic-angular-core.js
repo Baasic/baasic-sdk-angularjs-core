@@ -1,20 +1,22 @@
-(function (angular, undefined) {
-    var module = angular.module("baasic.api", ["HALParser"]);
+(function (angular, undefined) { /* exported module */
+    var module = angular.module('baasic.api', ['HALParser']);
 
-    module.config(["$provide", function config($provide) {
+    /* globals module */
+
+    module.config(['$provide', function config($provide) {
         // copied from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
 
         function regExpEscape(s) {
             return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        };
+        }
 
-        if (!('withCredentials' in new XMLHttpRequest()) || (window.ActiveXObject || "ActiveXObject" in window)) {
+        if (!('withCredentials' in new XMLHttpRequest()) || (window.ActiveXObject || 'ActiveXObject' in window)) {
 
-            $provide.decorator("$httpBackend", ["$delegate", "$q", "$rootScope", "$window", "$document", "baasicApp", function initBaasicProxy($delegate, $q, $rootScope, $window, $document, baasicApp) {
-                var apps = baasicApp.all();
-                var proxies = [];
-                var requestHash = {};
-                var nextRequestId = 0;
+            $provide.decorator('$httpBackend', ['$delegate', '$q', '$rootScope', '$window', '$document', 'baasicApp', function initBaasicProxy($delegate, $q, $rootScope, $window, $document, baasicApp) {
+                var apps = baasicApp.all(),
+                    proxies = [],
+                    requestHash = {},
+                    nextRequestId = 0;
 
                 function sendNewMessage(proxy, message, callback) {
 
@@ -33,44 +35,44 @@
                     nextRequestId += 1;
                 }
 
-                for (var i = 0, l = apps.length; i < l; i++) {
-                    var app = apps[i];
+                function createProxy(app) {
+                    var apiUrl = app.getApiUrl();
+                    var proxy = {
+                        proxyFrame: [],
+                        apiUrlRegex: new RegExp('^' + regExpEscape(apiUrl)),
+                        sendMessage: function sendMessageToQueue(request) {
+                            this.proxyFrame.push(request);
+                        }
+                    };
 
-                    (function (app) {
-                        var apiUrl = app.get_apiUrl();
-                        var proxy = {
-                            proxyFrame: [],
-                            apiUrlRegex: new RegExp("^" + regExpEscape(apiUrl)),
-                            sendMessage: function sendMessageToQueue(request) {
-                                this.proxyFrame.push(request);
-                            }
+                    var injectFrame = angular.element('<iframe src="' + apiUrl + 'proxy/angular" style="display:none"></iframe>');
+                    injectFrame.bind('load', function () {
+                        var queue = proxy.proxyFrame;
+
+                        proxy.proxyFrame = this;
+                        proxy.sendMessage = function sendMessageToProxy(request) {
+                            this.proxyFrame.contentWindow.postMessage(JSON.stringify(request.message), apiUrl);
                         };
 
-                        proxies.push(proxy);
+                        while (queue.length > 0) {
+                            proxy.sendMessage(queue.shift());
+                        }
+                    });
 
-                        var injectFrame = angular.element('<iframe src="' + apiUrl + 'proxy/angular" style="display:none"></iframe>');
-                        injectFrame.bind("load", function () {
-                            var queue = proxy.proxyFrame;
+                    $document.find('body').append(injectFrame);
 
-                            proxy.proxyFrame = this;
-                            proxy.sendMessage = function sendMessageToProxy(request) {
-                                this.proxyFrame.contentWindow.postMessage(JSON.stringify(request.message), apiUrl);
-                            };
-
-                            while (queue.length > 0) {
-                                proxy.sendMessage(queue.shift());
-                            }
-                        });
-
-                        $document.find("body").append(injectFrame);
-                    })(app);
+                    return proxy;
                 }
 
-                angular.element($window).bind("message", function readMessageFromProxy(e) {
+                for (var i = 0, l = apps.length; i < l; i++) {
+                    proxies.push(createProxy(apps[i]));
+                }
+
+                angular.element($window).bind('message', function readMessageFromProxy(e) {
                     var event = e.originalEvent || e;
                     var response = JSON.parse(event.data);
                     var request = requestHash[response.requestId];
-                    if (request && event.source == request.proxy.proxyFrame.contentWindow) {
+                    if (request && event.source === request.proxy.proxyFrame.contentWindow) {
                         delete requestHash[response.requestId];
                         request.callback(response.status, response.response, response.headersString);
                     }
@@ -101,8 +103,10 @@
         }
     }]);
 
+    /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
+        'use strict';
         var extend = angular.extend;
         // Tokenizer and unquote code taken from http://stackoverflow.com/questions/5288150/digest-authentication-w-jquery-is-it-possible/5288679#5288679
         var wwwAuthenticateTokenizer = (function () {
@@ -110,11 +114,11 @@
                 token = '(?:[\\x21\\x23-\\x27\\x2A\\x2B\\x2D\\x2E\\x30-\\x39\\x3F\\x41-\\x5A\\x5E-\\x7A\\x7C\\x7E]+)',
                 quotedString = '"(?:[\\x00-\\x0B\\x0D-\\x21\\x23-\\x5B\\\\x5D-\\x7F]|' + ws + '|\\\\[\\x00-\\x7F])*"';
 
-            return RegExp(token + '(?:=(?:' + quotedString + '|' + token + '))?', 'g');
+            return new RegExp(token + '(?:=(?:' + quotedString + '|' + token + '))?', 'g');
         })();
 
         function unquote(quotedString) {
-            return quotedString.substr(1, quotedString.length - 2).replace(/(?:(?:\r\n)?[ \t])+/g, " ");
+            return quotedString.substr(1, quotedString.length - 2).replace(/(?:(?:\r\n)?[ \t])+/g, ' ');
         }
 
         function parseWWWAuthenticateHeader(value) {
@@ -128,7 +132,7 @@
                     if (tokens.length > 1) {
                         var details = {};
                         for (var i = 1, l = tokens.length; i < l; i++) {
-                            var values = tokens[i].split("=");
+                            var values = tokens[i].split('=');
                             details[values[0]] = unquote(values[1]);
                         }
 
@@ -148,7 +152,7 @@
 
         function isAbsoluteUrl(url) {
             var lowerUrl = url.toLowerCase();
-            return startsWith(lowerUrl, "http://") || startsWith(lowerUrl, "https://");
+            return startsWith(lowerUrl, 'http://') || startsWith(lowerUrl, 'https://');
         }
 
         function tail(array) {
@@ -179,32 +183,34 @@
         }
 
         var proxyFactory = function proxyFactory($rootScope, $http, parser, app) {
-            var apiUrl = app.get_apiUrl();
+            var apiUrl = app.getApiUrl();
 
             function removeToken(details) {
-                var token = app.get_accessToken();
-                app.update_accessToken(null);
-                $rootScope.$broadcast("token_error", {
+                var token = app.getAccessToken();
+                app.updateAccessToken(null);
+                $rootScope.$broadcast('token_error', {
                     token: token,
                     error: details.error,
-                    error_description: details.error_description
+                    /*jshint camelcase: false */
+                    errorDescription: details.error_description
                 });
             }
 
             function parseHeaders(headers) {
-                var wwwAuthenticate = parseWWWAuthenticateHeader(headers("WWW-Authenticate"));
+                var wwwAuthenticate = parseWWWAuthenticateHeader(headers('WWW-Authenticate'));
                 if (wwwAuthenticate) {
-                    if (wwwAuthenticate.scheme.toLowerCase() === "bearer") {
+                    if (wwwAuthenticate.scheme.toLowerCase() === 'bearer') {
                         var details = wwwAuthenticate.details;
                         if (details) {
                             if (details.error) {
                                 switch (details.error) {
-                                case "invalid_token":
-                                    removeToken(details)
+                                case 'invalid_token':
+                                    removeToken(details);
                                     break;
-                                case "invalid_request":
-                                    switch (details.error_description) {
-                                    case "Missing or invalid session":
+                                case 'invalid_request':
+                                    /*jshint camelcase: false */
+                                    switch (details.error_description) { /*jshint camelcase: true */
+                                    case 'Missing or invalid session':
                                         removeToken(details);
                                         break;
                                     }
@@ -225,16 +231,16 @@
 
                     var headers = config.headers || (config.headers = {});
 
-                    if (!headers["Content-Type"]) {
-                        headers["Content-Type"] = "application/json; charset=UTF-8";
-                    }
-                    if (!headers["Accept"]) {
-                        headers["Accept"] = "application/hal+json; charset=UTF-8";
-                    }
+                    if (!headers['Content-Type']) {
+                        headers['Content-Type'] = 'application/json; charset=UTF-8';
+                    } /*jshint sub: true */
+                    if (!headers['Accept']) {
+                        headers['Accept'] = 'application/hal+json; charset=UTF-8';
+                    } /*jshint sub: false */
 
-                    var token = app.get_accessToken();
-                    if (token) {
-                        headers["AUTHORIZATION"] = token.token_type + ' ' + token.access_token;
+                    var token = app.getAccessToken();
+                    if (token) { /*jshint camelcase: false, sub: true */
+                        headers['AUTHORIZATION'] = token.token_type + ' ' + token.access_token;
                     }
                 }
 
@@ -242,8 +248,8 @@
 
                 promise = extend(promise.then(function (response) {
                     if (response.headers) {
-                        var contentType = response.headers("Content-Type");
-                        if (contentType && contentType.toLowerCase().indexOf("application/hal+json") !== -1) {
+                        var contentType = response.headers('Content-Type');
+                        if (contentType && contentType.toLowerCase().indexOf('application/hal+json') !== -1) {
                             response.data = parser.parse(response.data);
                         }
 
@@ -256,22 +262,25 @@
                 }).
                 finally(function () {
                     var token = app.get_accessToken();
-                    if (token && token.sliding_window) {
-                        token.expireTime = new Date().getTime() + (token.sliding_window * 1000);
-                        app.update_accessToken(token);
+                    if (token) { /*jshint camelcase: false */
+                        var slidingWindow = token.sliding_window; /*jshint camelcase: true */
+                        if (slidingWindow) {
+                            token.expireTime = new Date().getTime() + (token.slidingWindow * 1000);
+                            app.updateAccessToken(token);
+                        }
                     }
                 }), promise);
 
                 return promise;
-            }
+            };
 
-            createShortMethods(proxyMethod, "get", "delete", "head", "jsonp");
-            createShortMethodsWithData(proxyMethod, "post", "put");
+            createShortMethods(proxyMethod, 'get', 'delete', 'head', 'jsonp');
+            createShortMethodsWithData(proxyMethod, 'post', 'put');
 
             return proxyMethod;
-        }
+        };
 
-        module.service("baasicApiHttp", ["$rootScope", "$http", "HALParser", "baasicApp", function baasicApiHttp($rootScope, $http, HALParser, baasicApp) {
+        module.service('baasicApiHttp', ['$rootScope', '$http', 'HALParser', 'baasicApp', function baasicApiHttp($rootScope, $http, HALParser, baasicApp) {
             var parser = new HALParser();
 
             var proxy = proxyFactory($rootScope, $http, parser, baasicApp.get());
@@ -284,9 +293,11 @@
         }]);
     })(angular, module);
 
+    /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicApiService", ["baasicConstants", function (baasicConstants) {
+        'use strict';
+        module.service('baasicApiService', ['baasicConstants', function (baasicConstants) {
             function FindParams(options) {
                 if (angular.isObject(options)) {
                     angular.extend(this, options);
@@ -349,16 +360,17 @@
                 }
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module, MonoSoftware */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.provider("baasicApp", function baasicAppService() {
+        'use strict';
+        module.provider('baasicApp', function baasicAppService() {
             var apps = {};
             var defaultApp;
             this.create = function create(apiKey, config) {
                 var defaultConfig = {
-                    apiRootUrl: "api.baasic.com",
-                    apiVersion: "beta"
+                    apiRootUrl: 'api.baasic.com',
+                    apiVersion: 'beta'
                 };
                 var app = MonoSoftware.Baasic.Application.init(apiKey, angular.extend(defaultConfig, config));
 
@@ -368,7 +380,7 @@
                 }
 
                 return app;
-            }
+            };
 
             this.$get = function () {
                 return {
@@ -390,19 +402,21 @@
                 };
             };
         });
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicLookupRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
+        'use strict';
+        module.service('baasicLookupRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
-                get: uriTemplateService.parse("lookups/{?embed,fields}"),
+                get: uriTemplateService.parse('lookups/{?embed,fields}'),
                 parse: uriTemplateService.parse
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicLookupService", ["baasicApiHttp", "baasicApp", "baasicApiService", "baasicLookupRouteService", function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {
+        'use strict';
+        module.service('baasicLookupService', ['baasicApiHttp', 'baasicApp', 'baasicApiService', 'baasicLookupRouteService', function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {
             function getResponseData(params, data) {
                 var responseData = {};
                 if (params.embed) {
@@ -443,38 +457,37 @@
                 }
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.constant("baasicConstants", {
+        'use strict';
+        module.constant('baasicConstants', {
             idPropertyName: 'id',
             modelPropertyName: 'model'
         });
-    }(angular, module));
+    }(angular, module)); /* globals module, UriTemplate */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicUriTemplateService", [function () {
+        'use strict';
+        module.service('baasicUriTemplateService', [function () {
             return {
                 parse: function (link) {
                     return UriTemplate.parse(link);
                 },
                 constructTemplateUrl: function (config, params) {
                     if (!config || !config.templateText || !config.defaultUrl) {
-                        throw "Invalid template configuration.";
+                        throw 'Invalid template configuration.';
                     }
 
+                    var url, defaultUrl = config.defaultUrl;
                     if (config.templateText) {
-                        var
-                        expandedTemplate = null,
-                            defaultUrlIndex = null,
-                            sortParams = params.orderBy ? params.orderBy + '|' + params.orderDirection : null;
-
-                        var expandConfig = {
-                            page: params.pageNumber,
-                            rpp: params.pageSize,
-                            sort: sortParams,
-                            searchQuery: params.search
-                        };
+                        var sortParams = params.orderBy ? params.orderBy + '|' + params.orderDirection : null,
+                            expandConfig = {
+                                page: params.pageNumber,
+                                rpp: params.pageSize,
+                                sort: sortParams,
+                                searchQuery: params.search
+                            };
 
                         if (config.additionalParams) {
                             for (var p in config.additionalParams) {
@@ -487,9 +500,9 @@
                             }
                         }
 
-                        expandedTemplate = config.templateText.expand(expandConfig);
+                        var expandedTemplate = config.templateText.expand(expandConfig);
 
-                        defaultUrlIndex = expandedTemplate.indexOf(config.defaultUrl);
+                        var defaultUrlIndex = expandedTemplate.indexOf(defaultUrl);
 
                         url = expandedTemplate.substr(defaultUrlIndex);
                     }
@@ -499,7 +512,7 @@
 
                     return url;
                 }
-            }
+            };
         }]);
     })(angular, module);
-})(angular);
+}(angular));

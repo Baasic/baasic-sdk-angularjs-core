@@ -1,22 +1,22 @@
-﻿(function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicUriTemplateService", [function () {
+﻿/* globals module, UriTemplate */
+
+(function (angular, module, undefined) {
+    'use strict';
+    module.service('baasicUriTemplateService', [function () {
         return {
             parse: function (link) {
                 return UriTemplate.parse(link);
             },
             constructTemplateUrl: function (config, params) {
                 if (!config || !config.templateText || !config.defaultUrl) {
-                    throw "Invalid template configuration.";
+                    throw 'Invalid template configuration.';
                 }
-
+				
+				var url,
+					defaultUrl = config.defaultUrl;
                 if (config.templateText) {
-                    var
-                        expandedTemplate = null,
-                        defaultUrlIndex = null,
-                        sortParams = params.orderBy ? params.orderBy + '|' + params.orderDirection : null;
-
-                    var expandConfig = { page: params.pageNumber, rpp: params.pageSize, sort: sortParams, searchQuery: params.search };
+                    var sortParams = params.orderBy ? params.orderBy + '|' + params.orderDirection : null,
+						expandConfig = { page: params.pageNumber, rpp: params.pageSize, sort: sortParams, searchQuery: params.search };
 
                     if (config.additionalParams) {
                         for (var p in config.additionalParams) {
@@ -29,9 +29,9 @@
                         }
                     }
 
-                    expandedTemplate = config.templateText.expand(expandConfig);
+                    var expandedTemplate = config.templateText.expand(expandConfig);
 
-                    defaultUrlIndex = expandedTemplate.indexOf(config.defaultUrl);
+                    var defaultUrlIndex = expandedTemplate.indexOf(defaultUrl);
 
                     url = expandedTemplate.substr(defaultUrlIndex);
                 }
@@ -41,6 +41,6 @@
 
                 return url;
             }
-        }
+        };
     }]);
 })(angular, module);

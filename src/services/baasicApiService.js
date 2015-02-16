@@ -1,6 +1,8 @@
-﻿(function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicApiService", ["baasicConstants",
+﻿/* globals module */
+
+(function (angular, module, undefined) {
+    'use strict';
+    module.service('baasicApiService', ['baasicConstants',
         function (baasicConstants) {
             function FindParams(options) {
                 if (angular.isObject(options)) {
