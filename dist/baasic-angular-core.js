@@ -1,4 +1,31 @@
 (function (angular, undefined) { /* exported module */
+    /** 
+     * @overview The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism.
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
+
+    /**
+     * An angular module is a container for the different parts of your app - services, directives etc. In order to use baasic.api module functionality it must be added as a dependency to your app.
+     * @module baasic.appSettings
+     * @example
+     (function (Main) {
+     "use strict";
+     var dependencies = [
+     "baasic.api",
+     "baasic.membership",
+     "baasic.security",
+     "baasic.appSettings",
+     "baasic.article",
+     "baasic.dynamicResource",
+     "baasic.keyValue",
+     "baasic.valueSet"
+     ];
+     Main.module = angular.module("myApp.Main", dependencies);
+     }
+     (MyApp.Modules.Main = {})); 
+     */
     var module = angular.module('baasic.api', ['HALParser']);
 
     /* globals module */
@@ -104,6 +131,16 @@
     }]);
 
     /* globals module */
+    /**
+     * @module baasicApiHttp
+     **/
+
+    /** 
+     * @overview baasicApiHttp service is a core Baasic service that facilitates communication with the Baasic API. For more information please visit online angular [documentation](https://docs.angularjs.org/api/ng/service/$http).
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
 
     (function (angular, module, undefined) {
         'use strict';
@@ -294,6 +331,16 @@
     })(angular, module);
 
     /* globals module */
+    /**
+     * @module baasicApiService
+     **/
+
+    /** 
+     * @overview Baasic Api Service.
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
 
     (function (angular, module, undefined) {
         'use strict';
@@ -343,24 +390,59 @@
             }
 
             return {
+                /**
+                 * Parses Baasic Api pagination, sorting and search parameters.
+                 * @method        
+                 * @example baasicApiService.findParams({pageNumber:1, pageSize:100});               
+                 **/
                 findParams: function (options) {
                     return new FindParams(options);
                 },
+                /**
+                 * Parses specified key parameters, initial object can be expanded with additional parameters.
+                 * @method        
+                 * @example baasicApiService.getParams(("value", {additionalOptions: "option"}, "propertyName"));               
+                 **/
                 getParams: function (id, options, propName) {
                     return new KeyParams(id, options, propName);
                 },
+                /**
+                 * Transforms an object so that it can be safely expanded with additional properties.
+                 * @method        
+                 * @example baasicApiService.createParams(object);               
+                 **/
                 createParams: function (data) {
                     return new ModelParams(data);
                 },
+                /**
+                 * Transforms an object so that it can be safely expanded with additional properties.
+                 * @method        
+                 * @example baasicApiService.updateParams(object);               
+                 **/
                 updateParams: function (data) {
                     return new ModelParams(data);
                 },
+                /**
+                 * Transforms an object so that it can be safely expanded with additional properties.
+                 * @method        
+                 * @example baasicApiService.removeParams(object);               
+                 **/
                 removeParams: function (data) {
                     return new ModelParams(data);
                 }
             };
         }]);
     }(angular, module)); /* globals module, MonoSoftware */
+    /**
+     * @module baasicApp
+     **/
+
+    /** 
+     * @overview Baasic app service.
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
 
     (function (angular, module, undefined) {
         'use strict';
@@ -384,6 +466,11 @@
 
             this.$get = function () {
                 return {
+                    /**
+                     * Returns a list of app applications.
+                     * @method        
+                     * @example baasicLoginRouteService.all();               
+                     **/
                     all: function () {
                         var list = [];
                         for (var key in apps) {
@@ -392,6 +479,11 @@
 
                         return list;
                     },
+                    /**
+                     * Returns a specified application reference.
+                     * @method        
+                     * @example baasicLoginRouteService.get("apiKey");               
+                     **/
                     get: function getBaasicApplication(apiKey) {
                         if (apiKey) {
                             return apps[apiKey];
@@ -403,17 +495,47 @@
             };
         });
     }(angular, module)); /* globals module */
+    /**
+     * @module baasicLookupRouteService
+     **/
+
+    /** 
+     * @overview Lookup route service.
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
 
     (function (angular, module, undefined) {
         'use strict';
         module.service('baasicLookupRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
+                /**
+                 * Parses get article rating route which can be expanded with additional options. Supported items are: 
+                 * - `embed` - Comma separated list of resources to be contained within the current representation.
+                 * @method        
+                 * @example baasicLoginRouteService.get.expand({});               
+                 **/
                 get: uriTemplateService.parse('lookups/{?embed,fields}'),
+                /**
+                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                 * @method
+                 * @example uriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                 **/
                 parse: uriTemplateService.parse
             };
         }]);
     }(angular, module)); /* globals module */
+    /**
+     * @module baasicLookupService
+     **/
 
+    /** 
+     * @overview Lookup service.
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
     (function (angular, module, undefined) {
         'use strict';
         module.service('baasicLookupService', ['baasicApiHttp', 'baasicApp', 'baasicApiService', 'baasicLookupRouteService', function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {
@@ -433,6 +555,18 @@
 
             return {
                 routeService: lookupRouteService,
+                /**
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the lookup resource.
+                 * @method        
+                 * @example 
+                 baasicLookupService.get()
+                 .success(function (data) {
+                 // perform success action here
+                 })
+                 .error(function (response, status, headers, config) {
+                 // perform error handling here
+                 });
+                 **/
                 get: function (options) {
                     var deferred = baasicApiHttp.createHttpDefer();
                     baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams({
@@ -466,14 +600,43 @@
             modelPropertyName: 'model'
         });
     }(angular, module)); /* globals module, UriTemplate */
+    /**
+     * @module baasicUriTemplateService
+     **/
 
+    /** 
+     * @overview Uri template service.
+     * @copyright (c) 2015 Mono-Software
+     * @license MIT
+     * @author Mono-Software
+     */
     (function (angular, module, undefined) {
         'use strict';
         module.service('baasicUriTemplateService', [function () {
             return {
+                /**
+                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                 * @method
+                 * @example baasicUriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                 **/
                 parse: function (link) {
                     return UriTemplate.parse(link);
                 },
+                /**
+                 * Constructs template Url based on given arguments.
+                 * @method
+                 * @example 
+                 baasicUriTemplateService.constructTemplateUrl({
+                 templateText : UriTemplate.parse("route/{searchTerm}/{rpp}/{page}/{sort}"),
+                 defaultUrl : "route"
+                 }, {
+                 search : "searchTerm",
+                 pageNumber : 1,
+                 pageSize : 10,
+                 orderBy : "field",
+                 orderDirection : "desc"
+                 });
+                 **/
                 constructTemplateUrl: function (config, params) {
                     if (!config || !config.templateText || !config.defaultUrl) {
                         throw 'Invalid template configuration.';

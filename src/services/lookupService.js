@@ -1,5 +1,14 @@
 ﻿/* globals module */
+/**
+ * @module baasicLookupService
+**/
 
+/** 
+ * @overview Lookup service.
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
 (function (angular, module, undefined) {
     'use strict';
     module.service('baasicLookupService', ['baasicApiHttp', 'baasicApp', 'baasicApiService', 'baasicLookupRouteService',
@@ -20,6 +29,18 @@
 
             return {
                 routeService: lookupRouteService,
+                 /**
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the lookup resource.
+                 * @method        
+                 * @example 
+baasicLookupService.get()
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});
+                 **/  					
                 get: function (options) {
                     var deferred = baasicApiHttp.createHttpDefer();                                        
 					baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams({

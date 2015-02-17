@@ -1,4 +1,14 @@
 ﻿/* globals module */
+/**
+ * @module baasicApiHttp
+**/
+
+/** 
+ * @overview baasicApiHttp service is a core Baasic service that facilitates communication with the Baasic API. For more information please visit online angular [documentation](https://docs.angularjs.org/api/ng/service/$http).
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
 
 (function (angular, module, undefined) {
     'use strict';

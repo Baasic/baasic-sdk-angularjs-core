@@ -1,4 +1,14 @@
 ﻿/* globals module, MonoSoftware */
+/**
+ * @module baasicApp
+**/
+
+/** 
+ * @overview Baasic app service.
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
 
 (function (angular, module, undefined) {
 	'use strict';
@@ -22,6 +32,11 @@
 
 		this.$get = function () {
 			return {
+                /**
+                * Returns a list of app applications.
+                * @method        
+                * @example baasicLoginRouteService.all();               
+                **/ 				
 				all: function () {
 					var list = [];
 					for (var key in apps) {
@@ -30,6 +45,11 @@
 					
 					return list;
 				},
+                /**
+                * Returns a specified application reference.
+                * @method        
+                * @example baasicLoginRouteService.get("apiKey");               
+                **/ 				
 				get: function getBaasicApplication (apiKey) {
 					if (apiKey) {
 						return apps[apiKey];

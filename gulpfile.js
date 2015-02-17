@@ -1,6 +1,8 @@
 /* jshint node: true */
 'use strict';
 
+var docgen = require('baasic-javascript-docgen');
+
 var gulp = require('gulp'),
 	plugins = require('gulp-load-plugins')(),
 	stylish = require('jshint-stylish');
@@ -32,4 +34,9 @@ gulp.task('scripts', function() {
 	.pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['jshint', 'scripts']);
+gulp.task('docs', function() {
+  docgen.generateBaasicDocs('src', 'wiki', 'Baasic Core Navigation', ['config.js']);
+});
+
+
+gulp.task('default', ['jshint', 'docs', 'scripts']);
