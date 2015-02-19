@@ -4,7 +4,7 @@
 **/
 
 /** 
- * @overview Baasic app service.
+ * @overview App service.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software

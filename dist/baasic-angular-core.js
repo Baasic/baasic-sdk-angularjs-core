@@ -8,7 +8,7 @@
 
     /**
      * An angular module is a container for the different parts of your app - services, directives etc. In order to use baasic.api module functionality it must be added as a dependency to your app.
-     * @module baasic.appSettings
+     * @module baasic.api
      * @example
      (function (Main) {
      "use strict";
@@ -336,7 +336,7 @@
      **/
 
     /** 
-     * @overview Baasic Api Service.
+     * @overview Api Service.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -399,7 +399,7 @@
                     return new FindParams(options);
                 },
                 /**
-                 * Parses specified key parameters, initial object can be expanded with additional parameters.
+                 * Parses specified key parameters; initial object can be expanded with additional parameters.
                  * @method        
                  * @example baasicApiService.getParams(("value", {additionalOptions: "option"}, "propertyName"));               
                  **/
@@ -438,7 +438,7 @@
      **/
 
     /** 
-     * @overview Baasic app service.
+     * @overview App service.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software

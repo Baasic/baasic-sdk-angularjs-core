@@ -8,7 +8,7 @@
 
 /**
  * An angular module is a container for the different parts of your app - services, directives etc. In order to use baasic.api module functionality it must be added as a dependency to your app.
- * @module baasic.appSettings
+ * @module baasic.api
  * @example
 (function (Main) {
   "use strict";

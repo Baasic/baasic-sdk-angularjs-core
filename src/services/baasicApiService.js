@@ -4,7 +4,7 @@
 **/
 
 /** 
- * @overview Baasic Api Service.
+ * @overview Api Service.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software
@@ -68,7 +68,7 @@
                     return new FindParams(options);
                 },
                 /**
-                * Parses specified key parameters, initial object can be expanded with additional parameters.
+                * Parses specified key parameters; initial object can be expanded with additional parameters.
                 * @method        
                 * @example baasicApiService.getParams(("value", {additionalOptions: "option"}, "propertyName"));               
                 **/ 				
