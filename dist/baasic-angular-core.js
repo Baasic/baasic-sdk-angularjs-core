@@ -298,7 +298,7 @@
                     }
                 }).
                 finally(function () {
-                    var token = app.get_accessToken();
+                    var token = app.getAccessToken();
                     if (token) { /*jshint camelcase: false */
                         var slidingWindow = token.sliding_window; /*jshint camelcase: true */
                         if (slidingWindow) {
