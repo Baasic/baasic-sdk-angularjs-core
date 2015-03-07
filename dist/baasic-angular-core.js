@@ -469,7 +469,7 @@
                     /**
                      * Returns a list of app applications.
                      * @method        
-                     * @example baasicLoginRouteService.all();               
+                     * @example baasicApp.all();               
                      **/
                     all: function () {
                         var list = [];
@@ -482,7 +482,7 @@
                     /**
                      * Returns a specified application reference.
                      * @method        
-                     * @example baasicLoginRouteService.get("apiKey");               
+                     * @example baasicApp.get("apiKey");               
                      **/
                     get: function getBaasicApplication(apiKey) {
                         if (apiKey) {
@@ -511,16 +511,16 @@
         module.service('baasicLookupRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
                 /**
-                 * Parses get article rating route which can be expanded with additional options. Supported items are: 
+                 * Parses get route which can be expanded with additional options. Supported items are: 
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
-                 * @example baasicLoginRouteService.get.expand({});               
+                 * @example baasicLookupRouteService.get.expand({});               
                  **/
                 get: uriTemplateService.parse('lookups/{?embed,fields}'),
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example uriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                 * @example baasicLookupRouteService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                  **/
                 parse: uriTemplateService.parse
             };

@@ -35,7 +35,7 @@
                 /**
                 * Returns a list of app applications.
                 * @method        
-                * @example baasicLoginRouteService.all();               
+                * @example baasicApp.all();               
                 **/ 				
 				all: function () {
 					var list = [];
@@ -48,7 +48,7 @@
                 /**
                 * Returns a specified application reference.
                 * @method        
-                * @example baasicLoginRouteService.get("apiKey");               
+                * @example baasicApp.get("apiKey");               
                 **/ 				
 				get: function getBaasicApplication (apiKey) {
 					if (apiKey) {
