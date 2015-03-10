@@ -1,6 +1,18 @@
-﻿(function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicApiService", ["baasicConstants",
+﻿/* globals module */
+/**
+ * @module baasicApiService
+**/
+
+/** 
+ * @overview Api Service.
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
+
+(function (angular, module, undefined) {
+    'use strict';
+    module.service('baasicApiService', ['baasicConstants',
         function (baasicConstants) {
             function FindParams(options) {
                 if (angular.isObject(options)) {
@@ -47,18 +59,43 @@
             }
 
             return {
+                /**
+                * Parses Baasic Api pagination, sorting and search parameters.
+                * @method        
+                * @example baasicApiService.findParams({pageNumber:1, pageSize:100});               
+                **/ 				
                 findParams: function (options) {
                     return new FindParams(options);
                 },
+                /**
+                * Parses specified key parameters; initial object can be expanded with additional parameters.
+                * @method        
+                * @example baasicApiService.getParams(("value", {additionalOptions: "option"}, "propertyName"));               
+                **/ 				
                 getParams: function (id, options, propName) {
                     return new KeyParams(id, options, propName);
-                },
+                },	
+                /**
+                * Transforms an object so that it can be safely expanded with additional properties.
+                * @method        
+                * @example baasicApiService.createParams(object);               
+                **/ 					
                 createParams: function (data) {
                     return new ModelParams(data);
-                },
+                },						
+                /**
+                * Transforms an object so that it can be safely expanded with additional properties.
+                * @method        
+                * @example baasicApiService.updateParams(object);               
+                **/ 									
                 updateParams: function (data) {
                     return new ModelParams(data);
-                },
+                },				
+                /**
+                * Transforms an object so that it can be safely expanded with additional properties.
+                * @method        
+                * @example baasicApiService.removeParams(object);               
+                **/ 									
                 removeParams: function (data) {
                     return new ModelParams(data);
                 }

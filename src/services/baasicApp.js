@@ -1,12 +1,24 @@
-﻿(function (angular, module, undefined) {
-	"use strict";
-	module.provider("baasicApp", function baasicAppService() {
+﻿/* globals module, MonoSoftware */
+/**
+ * @module baasicApp
+**/
+
+/** 
+ * @overview App service.
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
+
+(function (angular, module, undefined) {
+	'use strict';
+	module.provider('baasicApp', function baasicAppService() {
 		var apps = {};
 		var defaultApp;
 		this.create = function create(apiKey, config) {
 			var defaultConfig = {
-				apiRootUrl: "api.baasic.local",
-				apiVersion: "beta"
+				apiRootUrl: 'api.baasic.local',
+				apiVersion: 'beta'
 			};
 			var app = MonoSoftware.Baasic.Application.init(apiKey, angular.extend(defaultConfig, config));
 
@@ -16,10 +28,15 @@
 			}
 
 			return app;
-		}
+		};
 
 		this.$get = function () {
 			return {
+                /**
+                * Returns a list of app applications.
+                * @method        
+                * @example baasicApp.all();               
+                **/ 				
 				all: function () {
 					var list = [];
 					for (var key in apps) {
@@ -28,6 +45,11 @@
 					
 					return list;
 				},
+                /**
+                * Returns a specified application reference.
+                * @method        
+                * @example baasicApp.get("apiKey");               
+                **/ 				
 				get: function getBaasicApplication (apiKey) {
 					if (apiKey) {
 						return apps[apiKey];
