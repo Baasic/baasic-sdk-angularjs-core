@@ -1,10 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicLookupService
-**/
-
-/** 
- * @overview Lookup service.
+ * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software

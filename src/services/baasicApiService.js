@@ -1,10 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicApiService
-**/
-
-/** 
- * @overview Api Service.
+ * @description This service is used to perform low level model or option transformations before they are sent to the Baasic back-end.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software
