@@ -1,21 +1,19 @@
 # Baasic Core AngularJS SDK
 
-Baasic AngularJS Core library provides integration access to Baasic Service [REST API](https://api.baasic.com).
+Baasic AngularJS Core library provides integration access to Baasic Service [REST API](https://api.baasic.com/vX).
 
 ## Dependencies
 
 Baasic AngularJS Core library has the following dependencies:
 
-* [Baasic JavaScript Framework](https://github.com/Baasic/baasic-sdk-javascript)
+* [Baasic JavaScript Framework](../../../baasic-sdk-javascript)
 * [AngularJS](http://www.angularjs.org/) (>= 1.2.16)
-* [HAL Parser](https://github.com/Baasic/angular-hal)
-* [URI Template](https://github.com/Baasic/uritemplate-js)
+* [HAL Parser](../../../angular-hal)
+* [URI Template](../../../uritemplate-js)
 
 ## Usage
 
-This section will describe how to add the Baasic AngularJS Core library to your project. It's important to know that Baasic AngularJS SDK uses HAL+JSON format for the back-end communication. You can find out more about HAL format [here](http://stateless.co/hal_specification.html).  
-
-If you prefer learning by example please skip to [Demo Section](#demo).
+This section will describe how to add the Baasic AngularJS Core library to your project. It's important to know that Baasic AngularJS SDK uses HAL+JSON format for the back-end communication. You can find out more about HAL format [here](http://stateless.co/hal_specification.html).
 
 ### Adding the Library to your Project
 
@@ -32,7 +30,7 @@ The recommended way of serving the library is through a [CDN](http://en.wikipedi
 
 ### Initialization
 
-To be able to use the library you will need to add the Baasic (_baasic.api_) dependency to your AngularJS module. This will allow you to use library services described in [Modules Section](#baasic-modules).
+To be able to use the library you will need to add the Baasic (_baasic.api_) dependency to your AngularJS module.
 
 ```javascript
 angular.module('my-module', ["baasic.api"])
@@ -58,18 +56,14 @@ module.config(["baasicAppProvider",
 
 Baasic back-end contains various built-in modules that can be easily consumed through the Baasic AngularJS library. Below you can find detailed information about all the core modules supported by the library.
 
-* [Security service](https://github.com/Baasic/baasic-sdk-angularjs-security)
-* [Membership service](https://github.com/Baasic/baasic-sdk-angularjs-membership)
-* [Application settings service](https://github.com/Baasic/baasic-sdk-angularjs-app-settings)
-* [Key Value module service](https://github.com/Baasic/baasic-sdk-angularjs-key-value)
-* [Value Set module service](https://github.com/Baasic/baasic-sdk-angularjs-value-set)
-* [Dynamic Resources module service](https://github.com/Baasic/baasic-sdk-angularjs-dynamic-resource)
-* [Article module service](https://github.com/Baasic/baasic-sdk-angularjs-articles)
+* [Security service](../../../baasic-sdk-angularjs-security)
+* [Membership service](../../../baasic-sdk-angularjs-membership)
+* [Application settings service](../../../baasic-sdk-angularjs-app-settings)
+* [Key Value module service](../../../baasic-sdk-angularjs-key-value)
+* [Value Set module service](../../../baasic-sdk-angularjs-value-set)
+* [Dynamic Resources module service](../../../baasic-sdk-angularjs-dynamic-resource)
+* [Article module service](../../../baasic-sdk-angularjs-articles)
 * General services, directives etc.
-
-## Demo
-
-* [Agency Demo](http://demo.baasic.com/AngularJS/Agency)
 
 ## Build Process
 
