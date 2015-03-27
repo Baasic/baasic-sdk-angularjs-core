@@ -504,7 +504,7 @@
                  **/
                 get: uriTemplateService.parse('lookups/{?embed,fields}'),
                 /**
-                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
                  * @example baasicLookupRouteService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                  **/
@@ -601,7 +601,7 @@
         module.service('baasicUriTemplateService', [function () {
             return {
                 /**
-                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
                  * @example baasicUriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                  **/
