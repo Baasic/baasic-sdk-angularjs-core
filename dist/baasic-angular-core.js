@@ -393,7 +393,7 @@
                 /**
                  * Parses specified key parameters; initial object can be expanded with additional parameters.
                  * @method        
-                 * @example baasicApiService.getParams(("value", {additionalOptions: "option"}, "propertyName"));               
+                 * @example baasicApiService.getParams(("<value>", {additionalOptions: "<option>"}, "<property-name>"));
                  **/
                 getParams: function (id, options, propName) {
                     return new KeyParams(id, options, propName);
@@ -471,7 +471,7 @@
                     /**
                      * Returns a specified application reference.
                      * @method        
-                     * @example baasicApp.get("apiKey");               
+                     * @example baasicApp.get("<api-key>");               
                      **/
                     get: function getBaasicApplication(apiKey) {
                         if (apiKey) {
@@ -506,7 +506,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicLookupRouteService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                 * @example baasicLookupRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
                  **/
                 parse: uriTemplateService.parse
             };
@@ -603,7 +603,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicUriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                 * @example baasicUriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
                  **/
                 parse: function (link) {
                     return UriTemplate.parse(link);
@@ -616,7 +616,7 @@
                  templateText : UriTemplate.parse("route/{searchTerm}/{rpp}/{page}/{sort}"),
                  defaultUrl : "route"
                  }, {
-                 search : "searchTerm",
+                 search : "<search-phrase>",
                  pageNumber : 1,
                  pageSize : 10,
                  orderBy : "field",

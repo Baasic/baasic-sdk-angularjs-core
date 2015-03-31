@@ -45,7 +45,7 @@
                 /**
                 * Returns a specified application reference.
                 * @method        
-                * @example baasicApp.get("apiKey");               
+                * @example baasicApp.get("<api-key>");               
                 **/ 				
 				get: function getBaasicApplication (apiKey) {
 					if (apiKey) {
