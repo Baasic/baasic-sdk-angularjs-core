@@ -399,7 +399,7 @@
                     return new KeyParams(id, options, propName);
                 },
                 /**
-                 * Transforms an object so that it can be safely expanded with additional properties.
+                 * Performs create resource transforms on an object so that it can be safely expanded with additional properties.
                  * @method        
                  * @example baasicApiService.createParams(object);               
                  **/
@@ -407,7 +407,7 @@
                     return new ModelParams(data);
                 },
                 /**
-                 * Transforms an object so that it can be safely expanded with additional properties.
+                 * Performs update resource transforms on transforms an object so that it can be safely expanded with additional properties.
                  * @method        
                  * @example baasicApiService.updateParams(object);               
                  **/
@@ -415,7 +415,7 @@
                     return new ModelParams(data);
                 },
                 /**
-                 * Transforms an object so that it can be safely expanded with additional properties.
+                 * Performs remove resource transforms on transforms an object so that it can be safely expanded with additional properties.
                  * @method        
                  * @example baasicApiService.removeParams(object);               
                  **/
@@ -438,6 +438,15 @@
         module.provider('baasicApp', function baasicAppService() {
             var apps = {};
             var defaultApp;
+            /**
+             * Create an application.
+             * @method create       
+             * @example
+             var app = baasicApp.create("<api-key>", {
+             apiRootUrl : "api.baasic.com",
+             apiVersion : "<version>" // for beta please use "beta" as a desired version
+             });
+             **/
             this.create = function create(apiKey, config) {
                 var defaultConfig = {
                     apiRootUrl: 'api.baasic.com',
@@ -456,7 +465,7 @@
             this.$get = function () {
                 return {
                     /**
-                     * Returns a list of app applications.
+                     * Returns a list of all applications.
                      * @method        
                      * @example baasicApp.all();               
                      **/
@@ -469,7 +478,7 @@
                         return list;
                     },
                     /**
-                     * Returns a specified application reference.
+                     * Returns a specified application.
                      * @method        
                      * @example baasicApp.get("<api-key>");               
                      **/
@@ -539,7 +548,7 @@
             return {
                 routeService: lookupRouteService,
                 /**
-                 * Returns a promise that is resolved once the get action has been performed. Success response returns the lookup resource.
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the lookup resources.
                  * @method        
                  * @example 
                  baasicLookupService.get()

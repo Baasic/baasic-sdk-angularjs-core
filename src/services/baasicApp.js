@@ -12,6 +12,15 @@
 	module.provider('baasicApp', function baasicAppService() {
 		var apps = {};
 		var defaultApp;
+        /**
+        * Create an application.
+        * @method create       
+        * @example
+var app = baasicApp.create("<api-key>", {
+    apiRootUrl : "api.baasic.com",
+    apiVersion : "<version>" // for beta please use "beta" as a desired version
+});      
+        **/ 
 		this.create = function create(apiKey, config) {
 			var defaultConfig = {
 				apiRootUrl: 'api.baasic.local',
@@ -30,7 +39,7 @@
 		this.$get = function () {
 			return {
                 /**
-                * Returns a list of app applications.
+                * Returns a list of all applications.
                 * @method        
                 * @example baasicApp.all();               
                 **/ 				
@@ -43,7 +52,7 @@
 					return list;
 				},
                 /**
-                * Returns a specified application reference.
+                * Returns a specified application.
                 * @method        
                 * @example baasicApp.get("<api-key>");               
                 **/ 				

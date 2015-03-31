@@ -73,7 +73,7 @@
                     return new KeyParams(id, options, propName);
                 },	
                 /**
-                * Transforms an object so that it can be safely expanded with additional properties.
+                * Performs create resource transforms on an object so that it can be safely expanded with additional properties.
                 * @method        
                 * @example baasicApiService.createParams(object);               
                 **/ 					
@@ -81,7 +81,7 @@
                     return new ModelParams(data);
                 },						
                 /**
-                * Transforms an object so that it can be safely expanded with additional properties.
+                * Performs update resource transforms on transforms an object so that it can be safely expanded with additional properties.
                 * @method        
                 * @example baasicApiService.updateParams(object);               
                 **/ 									
@@ -89,7 +89,7 @@
                     return new ModelParams(data);
                 },				
                 /**
-                * Transforms an object so that it can be safely expanded with additional properties.
+                * Performs remove resource transforms on transforms an object so that it can be safely expanded with additional properties.
                 * @method        
                 * @example baasicApiService.removeParams(object);               
                 **/ 									

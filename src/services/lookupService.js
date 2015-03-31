@@ -27,7 +27,7 @@
             return {
                 routeService: lookupRouteService,
                  /**
-                 * Returns a promise that is resolved once the get action has been performed. Success response returns the lookup resource.
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the lookup resources.
                  * @method        
                  * @example 
 baasicLookupService.get()
