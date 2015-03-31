@@ -2,9 +2,9 @@
 /**
  * @module baasicApp
  * @description  `baasicApp` service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application).
- * @copyright (c) 2015 Mono-Software
+ * @copyright (c) 2015 Mono
  * @license MIT
- * @author Mono-Software
+ * @author Mono
 */
 
 (function (angular, module, undefined) {

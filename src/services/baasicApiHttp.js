@@ -4,9 +4,9 @@
  * @description `baasicApiHttp` service is a core Baasic service that facilitates communication with the Baasic API. For more information please visit online angular [documentation](https://docs.angularjs.org/api/ng/service/$http). This service handles:
     - authentication tokens
     - HAL parsing
- * @copyright (c) 2015 Mono-Software
+ * @copyright (c) 2015 Mono
  * @license MIT
- * @author Mono-Software
+ * @author Mono
 */
 
 (function (angular, module, undefined) {

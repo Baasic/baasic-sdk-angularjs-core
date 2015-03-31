@@ -1,9 +1,9 @@
 (function (angular, undefined) { /* exported module */
     /** 
      * @description The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism. An angular module is a container for the different parts of your app - services, directives etc. In order to use `baasic.api` module functionality it must be added as a dependency to your app.
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      * @module baasic.api
      * @example
      (function (Main) {
@@ -132,9 +132,9 @@
      * @description `baasicApiHttp` service is a core Baasic service that facilitates communication with the Baasic API. For more information please visit online angular [documentation](https://docs.angularjs.org/api/ng/service/$http). This service handles:
      - authentication tokens
      - HAL parsing
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
 
     (function (angular, module, undefined) {
@@ -329,9 +329,9 @@
     /**
      * @module baasicApiService
      * @description This service is used to perform low level model or option transformations before they are sent to the Baasic back-end.
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
 
     (function (angular, module, undefined) {
@@ -428,9 +428,9 @@
     /**
      * @module baasicApp
      * @description  `baasicApp` service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application).
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
 
     (function (angular, module, undefined) {
@@ -496,9 +496,9 @@
     /**
      * @module baasicLookupRouteService
      * @description Baasic Lookup Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. `baasicLookupService` uses `baasicLookupRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
 
     (function (angular, module, undefined) {
@@ -524,9 +524,9 @@
     /**
      * @module baasicLookupService
      * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API.
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -587,9 +587,9 @@
     /**
      * @module baasicConstants
      * @description Baasic constants contain values such as _id_ property name and _model_ property name parameters that can be used in case manual model or option transformation is needed.
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -601,9 +601,9 @@
     /**
      * @module baasicUriTemplateService
      * @description This is the core Uri template service wihch expands templates based on on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications and can expand templates up to and including Level 4 in that specification.
-     * @copyright (c) 2015 Mono-Software
+     * @copyright (c) 2015 Mono
      * @license MIT
-     * @author Mono-Software
+     * @author Mono
      */
     (function (angular, module, undefined) {
         'use strict';

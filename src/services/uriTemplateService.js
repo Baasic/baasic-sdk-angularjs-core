@@ -2,9 +2,9 @@
 /**
  * @module baasicUriTemplateService
  * @description This is the core Uri template service wihch expands templates based on on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications and can expand templates up to and including Level 4 in that specification.
- * @copyright (c) 2015 Mono-Software
+ * @copyright (c) 2015 Mono
  * @license MIT
- * @author Mono-Software
+ * @author Mono
 */
 (function (angular, module, undefined) {
     'use strict';
