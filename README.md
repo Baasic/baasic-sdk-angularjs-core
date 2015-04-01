@@ -42,7 +42,7 @@ module.config(["baasicAppProvider",
     function (baasicAppProvider) {
         var app = baasicAppProvider.create("my-app-identifier", {
             apiRootUrl: "api.baasic.com",
-            apiVersion: "v1"
+            apiVersion: "<version>"
         });
     }]);
 ```
