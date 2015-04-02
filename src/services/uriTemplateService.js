@@ -29,7 +29,7 @@ baasicUriTemplateService.constructTemplateUrl({
   search : "<search-phrase>",
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "field",
+  orderBy : "<field>",
   orderDirection : "desc"
 });			
 			**/  			
