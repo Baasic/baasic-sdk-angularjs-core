@@ -59,7 +59,7 @@
                 /**
                 * Parses Baasic Api pagination, sorting and search parameters.
                 * @method        
-                * @example baasicApiService.findParams({pageNumber:1, pageSize:100});               
+                * @example baasicApiService.findParams({pageNumber:1, pageSize:10});               
                 **/ 				
                 findParams: function (options) {
                     return new FindParams(options);

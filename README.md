@@ -1,6 +1,6 @@
 # Baasic Core AngularJS SDK
 
-Baasic AngularJS Core library provides integration access to Baasic Service [REST API](https://api.baasic.com/vX).
+Baasic AngularJS Core library provides integration access to [Baasic REST API](https://api.baasic.com/beta) core end-points.
 
 ## Dependencies
 
@@ -86,4 +86,4 @@ Before you create a new issue, please make sure it hasn't already been reported.
 
 * Help us write the documentation
 * Create interesting apps using SDK
-* Looking for something else to do? Get in touch..
+* Looking for something else to do? Get in <u>touch</u> ...

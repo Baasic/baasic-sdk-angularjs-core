@@ -30,7 +30,7 @@ baasicUriTemplateService.constructTemplateUrl({
   pageNumber : 1,
   pageSize : 10,
   orderBy : "<field>",
-  orderDirection : "desc"
+  orderDirection : "<asc|desc>"
 });			
 			**/  			
             constructTemplateUrl: function (config, params) {

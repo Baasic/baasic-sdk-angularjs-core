@@ -385,7 +385,7 @@
                 /**
                  * Parses Baasic Api pagination, sorting and search parameters.
                  * @method        
-                 * @example baasicApiService.findParams({pageNumber:1, pageSize:100});               
+                 * @example baasicApiService.findParams({pageNumber:1, pageSize:10});               
                  **/
                 findParams: function (options) {
                     return new FindParams(options);
@@ -495,7 +495,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicLookupRouteService
-     * @description Baasic Lookup Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. `baasicLookupService` uses `baasicLookupRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
+     * @description Baasic Lookup Route Service provides Baasic route templates which can be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. `baasicLookupService` uses `baasicLookupRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
      * @copyright (c) 2015 Mono
      * @license MIT
      * @author Mono
@@ -628,8 +628,8 @@
                  search : "<search-phrase>",
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : "field",
-                 orderDirection : "desc"
+                 orderBy : "<field>",
+                 orderDirection : "<asc|desc>"
                  });
                  **/
                 constructTemplateUrl: function (config, params) {
