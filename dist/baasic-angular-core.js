@@ -495,10 +495,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicLookupRouteService
-     * @description Baasic Lookup Route Service provides Baasic route templates which can be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. `baasicLookupService` uses `baasicLookupRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
+     * @description Baasic Lookup Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Lookup Route Service to obtain a needed routes while some routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
      */
 
     (function (angular, module, undefined) {
@@ -515,18 +512,27 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicLookupRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
+                 * @example baasicLookupRouteService.parse('<route>/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: uriTemplateService.parse
             };
         }]);
-    }(angular, module)); /* globals module */
+    }(angular, module));
     /**
-     * @module baasicLookupService
-     * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API.
      * @copyright (c) 2015 Mono
      * @license MIT
      * @author Mono
+     * @overview 
+     ***Notes:**
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - [URI Template](https://github.com/Baasic/uritemplate-js) syntax enables expanding the Baasic route templates to Baasic REST URIs providing it with an object that contains URI parameters.
+     - All end-point objects are transformed by the associated route service.
+     */
+
+    /* globals module */
+    /**
+     * @module baasicLookupService
+     * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API. In order to obtain a needed routes `baasicLookupService` uses `baasicLookupRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -583,7 +589,17 @@
                 }
             };
         }]);
-    }(angular, module)); /* globals module */
+    }(angular, module));
+    /**
+     * @copyright (c) 2015 Mono
+     * @license MIT
+     * @author Mono
+     * @overview 
+     ***Notes:**
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - All end-point objects are transformed by the associated route service.
+     */
+    /* globals module */
     /**
      * @module baasicConstants
      * @description Baasic constants contain values such as _id_ property name and _model_ property name parameters that can be used in case manual model or option transformation is needed.
@@ -612,7 +628,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicUriTemplateService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
+                 * @example baasicUriTemplateService.parse('<route>/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: function (link) {
                     return UriTemplate.parse(link);
@@ -622,7 +638,7 @@
                  * @method
                  * @example 
                  baasicUriTemplateService.constructTemplateUrl({
-                 templateText : UriTemplate.parse('route/{searchTerm}/{rpp}/{page}/{sort}'),
+                 templateText : UriTemplate.parse('<route>/{searchTerm}/{rpp}/{page}/{sort}'),
                  defaultUrl : 'route'
                  }, {
                  search : '<search-phrase>',
