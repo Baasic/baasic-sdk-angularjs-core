@@ -16,9 +16,9 @@
         * Create an application.
         * @method create       
         * @example
-var app = baasicApp.create("<api-key>", {
-    apiRootUrl : "api.baasic.com",
-    apiVersion : "<version>" // for beta please use "beta" as a desired version
+var app = baasicApp.create('<api-key>', {
+    apiRootUrl : 'api.baasic.com',
+    apiVersion : '<version>' // for beta please use "beta" as a desired version
 });      
         **/ 
 		this.create = function create(apiKey, config) {
@@ -54,7 +54,7 @@ var app = baasicApp.create("<api-key>", {
                 /**
                 * Returns a specified application.
                 * @method        
-                * @example baasicApp.get("<api-key>");               
+                * @example baasicApp.get('<api-key>');               
                 **/ 				
 				get: function getBaasicApplication (apiKey) {
 					if (apiKey) {

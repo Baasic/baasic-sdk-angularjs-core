@@ -7,18 +7,18 @@
      * @module baasic.api
      * @example
      (function (Main) {
-     "use strict";
+     'use strict';
      var dependencies = [
-     "baasic.api",
-     "baasic.membership",
-     "baasic.security",
-     "baasic.appSettings",
-     "baasic.article",
-     "baasic.dynamicResource",
-     "baasic.keyValue",
-     "baasic.valueSet"
+     'baasic.api',
+     'baasic.membership',
+     'baasic.security',
+     'baasic.appSettings',
+     'baasic.article',
+     'baasic.dynamicResource',
+     'baasic.keyValue',
+     'baasic.valueSet'
      ];
-     Main.module = angular.module("myApp.Main", dependencies);
+     Main.module = angular.module('myApp.Main', dependencies);
      }
      (MyApp.Modules.Main = {})); 
      */
@@ -393,7 +393,7 @@
                 /**
                  * Parses specified key parameters; initial object can be expanded with additional parameters.
                  * @method        
-                 * @example baasicApiService.getParams(("<value>", {additionalOptions: "<option>"}, "<property-name>"));
+                 * @example baasicApiService.getParams(('<value>', {additionalOptions: '<option>'}, '<property-name>'));
                  **/
                 getParams: function (id, options, propName) {
                     return new KeyParams(id, options, propName);
@@ -442,9 +442,9 @@
              * Create an application.
              * @method create       
              * @example
-             var app = baasicApp.create("<api-key>", {
-             apiRootUrl : "api.baasic.com",
-             apiVersion : "<version>" // for beta please use "beta" as a desired version
+             var app = baasicApp.create('<api-key>', {
+             apiRootUrl : 'api.baasic.com',
+             apiVersion : '<version>' // for beta please use "beta" as a desired version
              });
              **/
             this.create = function create(apiKey, config) {
@@ -480,7 +480,7 @@
                     /**
                      * Returns a specified application.
                      * @method        
-                     * @example baasicApp.get("<api-key>");               
+                     * @example baasicApp.get('<api-key>');               
                      **/
                     get: function getBaasicApplication(apiKey) {
                         if (apiKey) {
@@ -515,7 +515,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicLookupRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                 * @example baasicLookupRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: uriTemplateService.parse
             };
@@ -612,7 +612,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicUriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                 * @example baasicUriTemplateService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: function (link) {
                     return UriTemplate.parse(link);
@@ -622,14 +622,14 @@
                  * @method
                  * @example 
                  baasicUriTemplateService.constructTemplateUrl({
-                 templateText : UriTemplate.parse("route/{searchTerm}/{rpp}/{page}/{sort}"),
-                 defaultUrl : "route"
+                 templateText : UriTemplate.parse('route/{searchTerm}/{rpp}/{page}/{sort}'),
+                 defaultUrl : 'route'
                  }, {
-                 search : "<search-phrase>",
+                 search : '<search-phrase>',
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : "<field>",
-                 orderDirection : "<asc|desc>"
+                 orderBy : '<field>',
+                 orderDirection : '<asc|desc>'
                  });
                  **/
                 constructTemplateUrl: function (config, params) {

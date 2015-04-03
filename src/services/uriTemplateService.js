@@ -13,7 +13,7 @@
 			/**
 			* Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
 			* @method
-			* @example baasicUriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+			* @example baasicUriTemplateService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
 			**/  		
             parse: function (link) {
                 return UriTemplate.parse(link);
@@ -23,14 +23,14 @@
 			* @method
 			* @example 
 baasicUriTemplateService.constructTemplateUrl({
-  templateText : UriTemplate.parse("route/{searchTerm}/{rpp}/{page}/{sort}"),
-  defaultUrl : "route"
+  templateText : UriTemplate.parse('route/{searchTerm}/{rpp}/{page}/{sort}'),
+  defaultUrl : 'route'
 }, {
-  search : "<search-phrase>",
+  search : '<search-phrase>',
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "<field>",
-  orderDirection : "<asc|desc>"
+  orderBy : '<field>',
+  orderDirection : '<asc|desc>'
 });			
 			**/  			
             constructTemplateUrl: function (config, params) {

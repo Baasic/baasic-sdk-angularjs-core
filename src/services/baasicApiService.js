@@ -67,7 +67,7 @@
                 /**
                 * Parses specified key parameters; initial object can be expanded with additional parameters.
                 * @method        
-                * @example baasicApiService.getParams(("<value>", {additionalOptions: "<option>"}, "<property-name>"));
+                * @example baasicApiService.getParams(('<value>', {additionalOptions: '<option>'}, '<property-name>'));
                 **/ 				
                 getParams: function (id, options, propName) {
                     return new KeyParams(id, options, propName);
