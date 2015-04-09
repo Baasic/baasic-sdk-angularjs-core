@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicLookupService
- * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API. In order to obtain a needed routes `baasicLookupService` uses `baasicLookupRouteService`.
+ * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API end-points. In order to obtain a needed routes `baasicLookupService` uses `baasicLookupRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';

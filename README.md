@@ -22,7 +22,7 @@ Please add the following lines of code after the AngularJS include:
 ```html
 <script src='/js/hal-parser.js'></script>
 <script src='/js/uritemplate-min.js'></script>
-<script src='/js/baasic-angular-1.0.0.min.js'></script>
+<script src='/js/baasic-angular-core-1.0.0.min.js'></script>
 ```
 
 ### Initialization

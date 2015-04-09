@@ -385,7 +385,11 @@
                 /**
                  * Parses Baasic Api pagination, sorting and search parameters.
                  * @method        
-                 * @example baasicApiService.findParams({pageNumber:1, pageSize:10});               
+                 * @example 
+                 baasicApiService.findParams({
+                 pageNumber:1, 
+                 pageSize:10
+                 });
                  **/
                 findParams: function (options) {
                     return new FindParams(options);
@@ -393,7 +397,12 @@
                 /**
                  * Parses specified key parameters; initial object can be expanded with additional parameters.
                  * @method        
-                 * @example baasicApiService.getParams(('<value>', {additionalOptions: '<option>'}, '<property-name>'));
+                 * @example 
+                 baasicApiService.getParams((
+                 '<value>', 
+                 {additionalOptions: '<option>'}, 
+                 '<property-name>'
+                 ));
                  **/
                 getParams: function (id, options, propName) {
                     return new KeyParams(id, options, propName);
@@ -401,7 +410,7 @@
                 /**
                  * Performs create resource transforms on an object so that it can be safely expanded with additional properties.
                  * @method        
-                 * @example baasicApiService.createParams(object);               
+                 * @example baasicApiService.createParams({});               
                  **/
                 createParams: function (data) {
                     return new ModelParams(data);
@@ -409,7 +418,7 @@
                 /**
                  * Performs update resource transforms on transforms an object so that it can be safely expanded with additional properties.
                  * @method        
-                 * @example baasicApiService.updateParams(object);               
+                 * @example baasicApiService.updateParams({});               
                  **/
                 updateParams: function (data) {
                     return new ModelParams(data);
@@ -417,7 +426,7 @@
                 /**
                  * Performs remove resource transforms on transforms an object so that it can be safely expanded with additional properties.
                  * @method        
-                 * @example baasicApiService.removeParams(object);               
+                 * @example baasicApiService.removeParams({});               
                  **/
                 removeParams: function (data) {
                     return new ModelParams(data);
@@ -532,7 +541,7 @@
     /* globals module */
     /**
      * @module baasicLookupService
-     * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API. In order to obtain a needed routes `baasicLookupService` uses `baasicLookupRouteService`.
+     * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API end-points. In order to obtain a needed routes `baasicLookupService` uses `baasicLookupRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
