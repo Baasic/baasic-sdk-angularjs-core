@@ -1,6 +1,6 @@
 {
-  "name": "baasic-angular-core",
-  "version": "0.2.2",
+  "name": "baasic-angularjs-core",
+  "version": "0.2.3",
   "description": "Baasic AngularJS SDK Core modules and services.",
   "keywords": [
     "angularjs",
