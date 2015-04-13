@@ -18,7 +18,8 @@
         * @example
 var app = baasicApp.create('<api-key>', {
     apiRootUrl : 'api.baasic.com',
-    apiVersion : '<version>' // for beta please use "beta" as a desired version
+	// for beta please use "beta" as a desired version
+    apiVersion : '<version>' 
 });      
         **/ 
 		this.create = function create(apiKey, config) {
