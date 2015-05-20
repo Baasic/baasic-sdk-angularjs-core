@@ -7,10 +7,10 @@
     'use strict';
     module.service('baasicLookupService', ['baasicApiHttp', 'baasicApp', 'baasicApiService', 'baasicLookupRouteService',
         function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {			
-			function getResponseData(params, data) {
+			function getResponseData(embed, data) {
 				var responseData = {};
-				if (params.embed) {
-					var embeds = params.embed.split(',');
+				if (embed) {
+					var embeds = embed.split(',');
                     for (var index in embeds) {
                         var propName = embeds[index];
                         if (data.hasOwnProperty(propName)) {
@@ -36,12 +36,13 @@ baasicLookupService.get()
 });
                  **/  					
                 get: function (options) {
-                    var deferred = baasicApiHttp.createHttpDefer();                                        
+                    var deferred = baasicApiHttp.createHttpDefer();
+                    var embed = options.embed || 'role,accessAction,accessSection,snProvider';
 					baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams({
-						embed: 'role,accessAction,accessSection'
+						embed: embed
 					})))
 						.success(function (data, status, headers, config) {							
-							var responseData = getResponseData(options, data);								
+							var responseData = getResponseData(embed, data);								
 							deferred.resolve({
 								data: responseData,
 								status: status,

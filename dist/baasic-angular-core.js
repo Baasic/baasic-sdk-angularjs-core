@@ -1,9 +1,6 @@
 (function (angular, undefined) { /* exported module */
     /** 
      * @description The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism. An angular module is a container for the different parts of your app - services, directives etc. In order to use `baasic.api` module functionality it must be added as a dependency to your app.
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      * @module baasic.api
      * @example
      (function (Main) {
@@ -130,11 +127,8 @@
     /**
      * @module baasicApiHttp
      * @description `baasicApiHttp` service is a core Baasic service that facilitates communication with the Baasic API. `baasicApiHttp` service is based on Angular '$http' service. For more information please visit online angular [documentation](https://docs.angularjs.org/api/ng/service/$http). This service handles:
-     - authentication tokens
-     - HAL parsing
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
+     - authentication tokens and
+     - HAL parsing.
      */
 
     (function (angular, module, undefined) {
@@ -329,9 +323,6 @@
     /**
      * @module baasicApiService
      * @description This service is used to perform low level model or option transformations before they are sent to the Baasic back-end.
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      */
 
     (function (angular, module, undefined) {
@@ -437,9 +428,6 @@
     /**
      * @module baasicApp
      * @description  `baasicApp` service is used to manage Baasic application instances. Multiple AngularJS application instances can be created and coexist at the same time (each will communicate with its corresponding Baasic application).
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      */
 
     (function (angular, module, undefined) {
@@ -453,7 +441,8 @@
              * @example
              var app = baasicApp.create('<api-key>', {
              apiRootUrl : 'api.baasic.com',
-             apiVersion : '<version>' // for beta please use "beta" as a desired version
+             // for beta please use "beta" as a desired version
+             apiVersion : '<version>' 
              });
              **/
             this.create = function create(apiKey, config) {
@@ -521,16 +510,18 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicLookupRouteService.parse('<route>/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
+                 * @example 
+                 baasicLookupRouteService.parse(
+                 '<route>/{?embed,fields,options}'
+                 ).expand(
+                 {embed: '<embedded-resource>'}
+                 );
                  **/
                 parse: uriTemplateService.parse
             };
         }]);
     }(angular, module));
     /**
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      * @overview 
      ***Notes:**
      - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
@@ -546,10 +537,10 @@
     (function (angular, module, undefined) {
         'use strict';
         module.service('baasicLookupService', ['baasicApiHttp', 'baasicApp', 'baasicApiService', 'baasicLookupRouteService', function (baasicApiHttp, baasicApp, baasicApiService, lookupRouteService) {
-            function getResponseData(params, data) {
+            function getResponseData(embed, data) {
                 var responseData = {};
-                if (params.embed) {
-                    var embeds = params.embed.split(',');
+                if (embed) {
+                    var embeds = embed.split(',');
                     for (var index in embeds) {
                         var propName = embeds[index];
                         if (data.hasOwnProperty(propName)) {
@@ -576,10 +567,11 @@
                  **/
                 get: function (options) {
                     var deferred = baasicApiHttp.createHttpDefer();
+                    var embed = options.embed || 'role,accessAction,accessSection,snProvider';
                     baasicApiHttp.get(lookupRouteService.get.expand(baasicApiService.getParams({
-                        embed: 'role,accessAction,accessSection'
+                        embed: embed
                     }))).success(function (data, status, headers, config) {
-                        var responseData = getResponseData(options, data);
+                        var responseData = getResponseData(embed, data);
                         deferred.resolve({
                             data: responseData,
                             status: status,
@@ -600,9 +592,6 @@
         }]);
     }(angular, module));
     /**
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      * @overview 
      ***Notes:**
      - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
@@ -612,9 +601,6 @@
     /**
      * @module baasicConstants
      * @description Baasic constants contain values such as _id_ property name and _model_ property name parameters that can be used in case manual model or option transformation is needed.
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -626,9 +612,6 @@
     /**
      * @module baasicUriTemplateService
      * @description This is the core Uri template service wihch expands templates based on on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications and can expand templates up to and including Level 4 in that specification.
-     * @copyright (c) 2015 Mono
-     * @license MIT
-     * @author Mono
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -637,7 +620,12 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicUriTemplateService.parse('<route>/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
+                 * @example 
+                 baasicUriTemplateService.parse(
+                 '<route>/{?embed,fields,options}'
+                 ).expand(
+                 {embed: '<embedded-resource>'}
+                 );
                  **/
                 parse: function (link) {
                     return UriTemplate.parse(link);
