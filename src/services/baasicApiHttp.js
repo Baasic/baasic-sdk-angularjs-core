@@ -133,11 +133,11 @@
 
                 var headers = config.headers || (config.headers = {});
 
-                if (!headers['Content-Type']) {
+                if (!headers.hasOwnProperty('Content-Type')) {
                     headers['Content-Type'] = 'application/json; charset=UTF-8';
                 }
 				/*jshint sub: true */
-                if (!headers['Accept']) {
+                if (!headers.hasOwnProperty('Accept')) {
                     headers['Accept'] = 'application/hal+json; charset=UTF-8';
                 }
 				/*jshint sub: false */
