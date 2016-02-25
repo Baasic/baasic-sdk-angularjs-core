@@ -30,7 +30,7 @@
             return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
 
-        if (!('withCredentials' in new XMLHttpRequest()) || (window.ActiveXObject || 'ActiveXObject' in window)) {
+        if (!('withCredentials' in new XMLHttpRequest())) {
 
             $provide.decorator('$httpBackend', ['$delegate', '$q', '$rootScope', '$window', '$document', 'baasicApp', function initBaasicProxy($delegate, $q, $rootScope, $window, $document, baasicApp) {
                 var apps = baasicApp.all(),
