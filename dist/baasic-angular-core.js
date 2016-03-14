@@ -493,7 +493,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicLookupRouteService
-     * @description Baasic Lookup Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Lookup Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Lookup Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Lookup Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
      */
 
     (function (angular, module, undefined) {
@@ -532,7 +532,7 @@
     /* globals module */
     /**
      * @module baasicLookupService
-     * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API end-points. In order to obtain a needed routes `baasicLookupService` uses `baasicLookupRouteService`.
+     * @description Baasic Lookup Service provides an easy way to consume Baasic Lookup REST API end-points. In order to obtain needed routes `baasicLookupService` uses `baasicLookupRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
