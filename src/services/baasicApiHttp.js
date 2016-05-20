@@ -183,7 +183,7 @@
         };
 
         createShortMethods(proxyMethod, 'get', 'delete', 'head', 'jsonp');
-        createShortMethodsWithData(proxyMethod, 'post', 'put');
+        createShortMethodsWithData(proxyMethod, 'post', 'put', 'patch');
 
         return proxyMethod;
     };
