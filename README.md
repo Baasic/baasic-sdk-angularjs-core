@@ -1,6 +1,6 @@
 # Baasic Core AngularJS SDK
 
-Baasic AngularJS Core library provides integration access to [Baasic REST API](https://api.baasic.com/beta) core end-points.
+Baasic AngularJS Core library provides integration access to [Baasic REST API](http://dev.baasic.com/api/reference/home) core end-points.
 
 ## Dependencies
 
@@ -51,16 +51,7 @@ module.config(["baasicAppProvider",
 
 ## Baasic Modules
 
-Baasic back-end contains various built-in modules that can be easily consumed through the Baasic AngularJS library. Below you can find detailed information about all the core modules supported by the library.
-
-* [Security service](../../../baasic-sdk-angularjs-security)
-* [Membership service](../../../baasic-sdk-angularjs-membership)
-* [Application settings service](../../../baasic-sdk-angularjs-app-settings)
-* [Key Value module service](../../../baasic-sdk-angularjs-key-value)
-* [Value Set module service](../../../baasic-sdk-angularjs-value-set)
-* [Dynamic Resources module service](../../../baasic-sdk-angularjs-dynamic-resource)
-* [Article module service](../../../baasic-sdk-angularjs-articles)
-* General services, directives etc.
+Baasic back-end contains various built-in modules that can be easily consumed through the Baasic AngularJS library. Baasic Developer Center contains detailed information about all the core modules supported by the [AngularJS library](http://dev.baasic.com/sdk#AngularJS).
 
 ## Build Process
 
